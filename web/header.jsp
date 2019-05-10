@@ -33,6 +33,7 @@
                     <div class="header-ctn">
                         <div class="dropdown">
                             <%
+                            session.setAttribute("id", new String("1"));
                             if(session.getAttribute("id") == null){
                                 %>
                                 <form action="login.html">
@@ -40,6 +41,9 @@
                                 </form>
                                 <%
                             }else{%>
+                                <form action="cuenta.jsp">
+                                    <input type="submit" value="Mi cuenta"/>
+                                </form>
                                 <form action="index.jsp">
                                     <input type="submit" value="Cerrar sesión"/>
                                 </form>
