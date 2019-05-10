@@ -1,7 +1,7 @@
 package Model;
 
 import java.sql.Blob;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
 public class Producto {
     private int idProducto;
@@ -11,8 +11,7 @@ public class Producto {
     private double precio;
     private int existencia;
     private int unidades;
-    private ArrayList<Producto> productos;
-    private Producto producto;
+    private String image;
     
     public Producto(int idProducto, String nombreProd, Blob imagenProd, String decripción, double precio, int existencia, int unidades) {
         this.idProducto = idProducto;
@@ -22,9 +21,18 @@ public class Producto {
         this.precio = precio;
         this.existencia = existencia;
         this.unidades = unidades;
+        try {
+            this.image = "data:image/png;base64,"+new String(imagenProd.getBytes(1, (int)imagenProd.length()));
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
     public Producto(){
         
+    }
+
+    public String getImage() {
+        return image;
     }
     
     public int getIdProducto() {

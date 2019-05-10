@@ -27,8 +27,8 @@ CREATE TABLE Tarjeta(
 CREATE TABLE Productos(
 	idProducto INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombreProd VARCHAR(30) NOT NULL,
-    imagenProd BLOB NOT NULL, -- imagen del producto guardado como un blob.
-    decripción VARCHAR(70), 
+    imagenProd LONGBLOB NOT NULL, -- imagen del producto guardado como un blob.
+    decripcion VARCHAR(70), 
     precio INT NOT NULL,
     existencia INT NOT NULL, -- Existencia de las unidades actuales.
     unidades INT NOT NULL	-- Unidades iniciales del producto.

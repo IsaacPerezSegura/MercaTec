@@ -33,7 +33,7 @@
                     <div class="header-ctn">
                         <div class="dropdown">
                             <%
-                            session.setAttribute("id", new String("1"));
+                            //session.setAttribute("id", new String("1"));
                             if(session.getAttribute("id") == null){
                                 %>
                                 <form action="login.html">
@@ -76,9 +76,9 @@
                                 </div>
                                 <div class="cart-summary">
                                     <!-- Contador de productos en carro -->
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
-                                    
+                                    <!--  -->
+                                    <small>3 producto(s)</small>
+                                    <h5>SUBTOTAL: $2900.00</h5>
                                 </div>
                                 <div class="cart-btns">
                                     <form>

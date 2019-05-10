@@ -4,7 +4,10 @@
     Author     : Isaac Perez
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Model.GestorBD" %> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,6 +34,10 @@
         <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css"/>
     </head>
     <body>
+        <% 
+            GestorBD queries = new GestorBD();
+            ArrayList<Producto> productos =  queries.selectProducts();
+        %>
         <jsp:include page="header.jsp" />
         
         <!-- Contenido de index (articulos) -->
@@ -54,28 +61,35 @@
                                 <div id="tab1" class="tab-pane active">
                                     <div class="products-slick" data-nav="#slick-nav-1">
                                         <!-- product -->
-                                        <div class="product">
-                                            <div class="product-img">
-                                                <img src="./img/product01.jpg" alt="">
-                                            </div>
-                                            <div class="product-body">
-                                                <p class="product-category">Arduino</p>
-                                                <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                                                <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
+                                        <%
+                                            for(Producto producto:productos){
+                                                %>
+                                                <div class="product">
+                                                    <div class="product-img">
+                                                        <img src="<%= producto.getImage()%>">
+                                                    </div>
+                                                    <div class="product-body">
+                                                        <h3 class="product-name"><a href="#"><%= producto.getNombreProd() %></a></h3>
+                                                        <h4 class="product-price">$<%= producto.getPrecio() %></h4>
+                                                        <div class="product-rating">
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        </div>
+                                                        <div class="product-btns">
+                                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="add-to-cart">
+                                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
+                                                    </div>
                                                 </div>
-                                                <div class="product-btns">
-                                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
-                                                </div>
-                                            </div>
-                                            <div class="add-to-cart">
-                                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                                            </div>
-                                        </div>
+                                                
+                                                
+                                                <%
+                                            }
+                                        %>
                                         <!-- /product -->
                                     </div>
                                     <div id="slick-nav-1" class="products-slick-nav"></div>
@@ -96,16 +110,18 @@
         <div class="section">
             <!-- container -->
             <div id="productsTable">
-                <!-- product -->
+                <!-- products -->
+                <%
+                    for (Producto producto : productos) {
+                %>
                 <div id="item">
                     <div class="product">
                         <div class="product-img">
-                            <img src="./img/product01.jpg" alt="">
+                            <img src="<%= producto.getImage()%>">
                         </div>
                         <div class="product-body">
-                            <p class="product-category">Arduino</p>
-                            <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                            <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
+                            <h3 class="product-name"><a href="#"><%= producto.getNombreProd()%></a></h3>
+                            <h4 class="product-price">$<%= producto.getPrecio()%></h4>
                             <div class="product-rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -121,101 +137,11 @@
                         </div>
                     </div>
                 </div>
-                <div id="item">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product01.jpg" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Arduino</p>
-                            <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                            <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="item">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product01.jpg" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Arduino</p>
-                            <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                            <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="item">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product01.jpg" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Arduino</p>
-                            <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                            <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="item">
-                    <div class="product">
-                        <div class="product-img">
-                            <img src="./img/product01.jpg" alt="">
-                        </div>
-                        <div class="product-body">
-                            <p class="product-category">Arduino</p>
-                            <h3 class="product-name"><a href="#">Arduino UNO</a></h3>
-                            <h4 class="product-price">$150.00 <del class="product-old-price">$300.00</del></h4>
-                            <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="product-btns">
-                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">Ver producto</span></button>
-                            </div>
-                        </div>
-                        <div class="add-to-cart">
-                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Añadir al carrito</button>
-                        </div>
-                    </div>
+                    <%
+                        }
+                        productos.clear();
+                    %>
+                    <!-- /product -->
                 </div>
             </div>
         </div>

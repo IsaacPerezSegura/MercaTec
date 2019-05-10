@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.gestorBD;
+import Model.GestorBD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -27,7 +27,7 @@ public class Validation extends HttpServlet {
             String usuario = request.getParameter("user");
             String pass = request.getParameter("password");
             // Llamar al gestor de base de datos para realizar la búsqueda.
-            gestorBD gestor = new gestorBD();
+            GestorBD gestor = new GestorBD();
             if(gestor.getUsuario(usuario, pass)){
                 //Si regresa un sí, se crea una sesión de usuario.
                 HttpSession session = request.getSession(true);
