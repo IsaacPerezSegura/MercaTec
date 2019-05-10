@@ -498,7 +498,10 @@ textarea.input {
 .header-ctn>div {
   display: inline-block;
 }
-
+.header-ctn div form input{
+    background: transparent;
+    border:none;
+}
 .header-ctn>div+div {
   margin-left: 15px;
 }
@@ -510,7 +513,13 @@ textarea.input {
   text-align: center;
   color: #FFF;
 }
-
+.header-ctn>div>form {
+  display: block;
+  position: relative;
+  width: 90px;
+  text-align: center;
+  color: #FFF;
+}
 .header-ctn>div>a>i {
   display: block;
   font-size: 18px;
@@ -585,7 +594,7 @@ textarea.input {
   margin: 0px -17px -17px;
 }
 
-.cart-dropdown .cart-btns>a {
+.cart-dropdown .cart-btns form>a {
   display: inline-block;
   width: calc(50% - 0px);
   padding: 12px;
@@ -597,12 +606,12 @@ textarea.input {
   transition: 0.2s all;
 }
 
-.cart-dropdown .cart-btns>a:first-child {
+.cart-dropdown .cart-btns form>a:first-child {
   margin-right: -4px;
   background-color: #1e1f29;
 }
 
-.cart-dropdown .cart-btns>a:hover {
+.cart-dropdown .cart-btns form>a:hover {
   opacity: 0.9;
 }
 
@@ -856,7 +865,6 @@ textarea.input {
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
-
 .product:hover {
   -webkit-box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #D10024;
   box-shadow: 0px 0px 6px 0px #E4E7ED, 0px 0px 0px 2px #D10024;
@@ -2183,4 +2191,13 @@ textarea.input {
     float: none;
     margin-top: 10px;
   }
+}
+.section #productsTable{
+    width: 80%;
+    margin-left: 10%;
+}
+#item{
+    width:20%;
+    margin:0 2.5%;
+    float:left;
 }

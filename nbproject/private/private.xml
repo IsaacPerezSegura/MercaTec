@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Documentos/Escuela/MercaTec2/MercaTec/web/index.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/footer.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/header.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Model/ConexionBD.java</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/index.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/css/style.css</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Model/Producto.java</file>
         </group>
     </open-files>
 </project-private>
