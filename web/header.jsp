@@ -1,6 +1,14 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Model.GestorBD"%>
 <!DOCTYPE html>
 <header>
+    <%!
+        double total;
+        GestorBD queryCarrito = new GestorBD();
+        ArrayList<Producto> carrito = queryCarrito.selectCarrito(2);
+    %> 
     <!-- MAIN HEADER -->
     <div id="header">
         <!-- container -->
@@ -47,7 +55,7 @@
                                 <form action="index.jsp">
                                     <input type="submit" value="Cerrar sesión"/>
                                 </form>
-                            <%}
+                            <% }
                             %>
                         </div>
                     </div>
@@ -61,25 +69,30 @@
                                 <div class="qty">3</div>
                             </a>
                             <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <!-- Productos en carrito -->
-                                    <div class="product-widget">
+                                <div id="carrito" class="cart-list">
+                                    <%  
+                                        total = 0;
+                                        for(Producto producto:carrito){
+                                            total = total + producto.getPrecio();
+                                    %>
+                                      <!-- Productos en carrito -->
+                                    <div id="product-<%= producto.getIdProducto() %>" class="product-widget">
                                         <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
+                                            <img src="<%= producto.getImage() %>">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
+                                            <h3 class="product-name"><a href="#"><%= producto.getNombreProd() %></a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$<%= producto.getPrecio() %></h4>
                                         </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
-                                </div>
-                                <div class="cart-summary">
+                                        <button onclick="borrar('product-<%= producto.getIdProducto() %>'+'@'+'<%= producto.getPrecio() %>')" class="delete"><i class="fa fa-close"></i></button>
+                                    </div>      
+                                    <%  }
+                                    %>
                                     <!-- Contador de productos en carro -->
                                     <!--  -->
-                                    <small>3 producto(s)</small>
-                                    <h5>SUBTOTAL: $2900.00</h5>
                                 </div>
+                                    <small><%= carrito.size() %> producto(s)</small>
+                                    <h5 id="total">SUBTOTAL: $<%= total %></h5>
                                 <div class="cart-btns">
                                     <form>
                                         <a href="#">Ver carrito</a>
@@ -92,7 +105,6 @@
                     </div>
                 </div>
                 <!-- /ACCOUNT -->
-
             </div>
             <!-- row -->
         </div>
