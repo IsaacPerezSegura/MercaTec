@@ -44,8 +44,11 @@
                             //session.setAttribute("id", new String("1"));
                             if(session.getAttribute("id") == null){
                                 %>
-                                <form action="login.html">
+                                <form action="login.jsp">
                                     <input type="submit" value="Iniciar sesión"/>
+                                </form>
+                                <form action="Logout">
+                                    <input type="submit" value="Salir sesión"/>
                                 </form>
                                 <%
                             }else{%>
