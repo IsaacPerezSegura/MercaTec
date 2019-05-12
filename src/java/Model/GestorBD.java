@@ -92,7 +92,7 @@ public class GestorBD {
         try {
             ps = conexion.prepareStatement("select productos_carrito.id,productos.idProducto"
                     + ", productos.nombreProd, "
-                    + "productos.imagenProd, productos.decripcion, productos.precio,"
+                    + "productos.imagenProd, productos.descripcion, productos.precio,"
                     + " productos.existencia, productos.unidades " +
                 "from Productos_Carrito inner join carrito " +
                 "on carrito.idCarrito = Productos_Carrito.idCarrito inner join usuario " +

@@ -77,6 +77,7 @@
                                     <%  
                                         carrito = queryCarrito.selectCarrito(1);
                                         total = 0;
+                                        if(carrito != null){
                                         for(Producto producto:carrito.getProductos()){
                                             total = total + producto.getPrecio();
                                     %>
@@ -101,7 +102,7 @@
                                     <!--  -->
                                 </div>
                                     <small><%= carrito.getProductos().size() %> producto(s)</small>
-                                    <% carrito.getProductos().clear(); %>
+                                    <% carrito.getProductos().clear();} %>
                                     <h5 id="total">SUBTOTAL: $<%= total %></h5>
                                 <div class="cart-btns">
                                     <form>
