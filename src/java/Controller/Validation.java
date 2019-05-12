@@ -33,7 +33,7 @@ public class Validation extends HttpServlet {
                 //Si regresa un sí, se crea una sesión de usuario.
                 HttpSession session = request.getSession(true);
                 session.setAttribute( "id", id );
-                response.sendRedirect("newjsp.jsp");
+                response.sendRedirect("index.jsp");
             }else{
                          RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			out.println("<font color=red>El usuario o contraseña son incorrectos.</font>");

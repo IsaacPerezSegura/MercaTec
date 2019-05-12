@@ -591,27 +591,28 @@ textarea.input {
 }
 
 .cart-dropdown .cart-btns {
-  margin: 0px -17px -17px;
+    width: 100%;
+    background: green;
+    display: flex;
 }
-
-.cart-dropdown .cart-btns form>a {
-  display: inline-block;
-  width: calc(50% - 0px);
-  padding: 12px;
+.cart-dropdown .cart-btns form{
+    width:50%;
+}
+.cart-dropdown .cart-btns form button {
+  width: 100%;
+  padding: 12%;
   background-color: #D10024;
   color: #FFF;
   text-align: center;
   font-weight: 700;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
+  border:none;
 }
-
-.cart-dropdown .cart-btns form>a:first-child {
-  margin-right: -4px;
+.cart-dropdown .cart-btns>form:nth-child(1)>button {
   background-color: #1e1f29;
 }
-
-.cart-dropdown .cart-btns form>a:hover {
+.cart-dropdown .cart-btns form>button:hover {
   opacity: 0.9;
 }
 

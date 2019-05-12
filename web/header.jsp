@@ -1,9 +1,32 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Carrito"%>
 <%@page import="Model.Producto"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Model.GestorBD"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/gorro.ico" />
+        <title>MercaTec</title>
+        <!-- Google font -->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
+
+        <!-- Slick -->
+        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/slick-theme.css"/>
+
+        <!-- nouislider -->
+        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/nouislider.min.css"/>
+
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/font-awesome.min.css">
+
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css"/>
+    </head>
 <header>
     <%!
         double total;
@@ -42,7 +65,6 @@
                     <div class="header-ctn">
                         <div class="dropdown">
                             <%
-                            //session.setAttribute("id", new String("1"));
                             if(session.getAttribute("id") == null){
                                 %>
                                 <form action="login.jsp">
@@ -72,8 +94,12 @@
                             <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <%  
-                                        carrito = queryCarrito.selectCarrito(2);
                                         total = 0;
+                                        if(session.getAttribute("id")!=null){
+                                        carrito = queryCarrito.selectCarrito(
+                                                Integer.parseInt(
+                                                        session.getAttribute("id").toString()
+                                                ));
                                         for(Producto producto:carrito.getProductos()){
                                             total = total + producto.getPrecio();
                                     %>
@@ -98,12 +124,18 @@
                                     <!--  -->
                                 </div>
                                     <small><%= carrito.getProductos().size() %> producto(s)</small>
-                                    <% carrito.getProductos().clear(); %>
+                                    <% carrito.getProductos().clear(); }%>
                                     <h5 id="total">SUBTOTAL: $<%= total %></h5>
                                 <div class="cart-btns">
-                                    <form>
-                                        <a href="#">Ver carrito</a>
-                                        <a href="#">Comprar  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <form action="carrito">
+                                        <button value="show" name="show">
+                                            Ver carrito
+                                        </button>
+                                    </form>
+                                    <form action="carrito">
+                                        <button value="buy" name="buy">
+                                            Comprar
+                                        </button>
                                     </form>
                                 </div>
                             </div>

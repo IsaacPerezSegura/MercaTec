@@ -33,12 +33,23 @@ public class Carrito extends HttpServlet {
             throws ServletException, IOException {
         
         GestorBD queries = new GestorBD();
-        if(request.getParameter("id")!=null){
-            queries.insertProductCarrito(2,Integer.parseInt(request.getParameter("id")));
-        }else if(request.getParameter("idDelete")!=null){
-            queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
+        if(request.getSession().getAttribute("id")!=null){
+            if(request.getParameter("id")!=null){
+                queries.insertProductCarrito(
+                        Integer.parseInt(request.getSession().getAttribute("id").toString())
+                        ,Integer.parseInt(request.getParameter("id")));
+                response.sendRedirect(request.getContextPath());
+            }else if(request.getParameter("idDelete")!=null){
+                queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
+                response.sendRedirect(request.getContextPath());
+            }else if(request.getParameter("show")!=null){
+                response.sendRedirect("showCar.jsp");
+            }else if(request.getParameter("buy")!=null){
+                
+            }
+        }else{
+            response.sendRedirect("login.jsp");
         }
-        response.sendRedirect(request.getContextPath());
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

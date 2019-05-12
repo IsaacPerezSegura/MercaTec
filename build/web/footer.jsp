@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<!-- limpiar contenedor -->
+<div style="clear:both"></div>
 <!-- FOOTER -->
 <footer id="footer">
     <!-- top footer -->
