@@ -28,7 +28,7 @@ CREATE TABLE Productos(
 	idProducto INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombreProd VARCHAR(30) NOT NULL,
     imagenProd LONGBLOB NOT NULL, -- imagen del producto guardado como un blob.
-    decripcion VARCHAR(70), 
+    descripcion VARCHAR(70), 
     precio INT NOT NULL,
     existencia INT NOT NULL, -- Existencia de las unidades actuales.
     unidades INT NOT NULL	-- Unidades iniciales del producto.
@@ -56,6 +56,7 @@ CREATE TABLE Carrito(
 );
 
 CREATE TABLE Productos_Carrito(
+	id int primary key not null auto_increment,
 	idCarrito INT(5) NOT NULL,
     idProducto INT(5) NOT NULL
 );

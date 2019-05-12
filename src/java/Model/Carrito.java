@@ -3,18 +3,28 @@ package Model;
 import java.util.ArrayList;
 
 public class Carrito{
-    private ArrayList<Integer> idproducto;
-    public Carrito(ArrayList<Integer> idproducto){
-        this.idproducto = idproducto;
-    }
+    private ArrayList<Producto> productos;
+    private int idAregacion;
 
-    public ArrayList<Integer> getIdproducto() {
-        return idproducto;
-    }
-
-    public void setIdproducto(ArrayList<Integer> idproducto) {
-        this.idproducto = idproducto;
+    public Carrito(ArrayList<Producto> productos, int idAregacion) {
+        this.productos = productos;
+        this.idAregacion = idAregacion;
     }
     
+    public ArrayList<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(ArrayList<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public int getIdAregacion() {
+        return idAregacion;
+    }
+
+    public void setIdAregacion(int idAregacion) {
+        this.idAregacion = idAregacion;
+    }
     
 }

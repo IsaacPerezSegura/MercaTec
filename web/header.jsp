@@ -1,4 +1,5 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="Model.Carrito"%>
 <%@page import="Model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Model.GestorBD"%>
@@ -7,7 +8,7 @@
     <%!
         double total;
         GestorBD queryCarrito = new GestorBD();
-        ArrayList<Producto> carrito = queryCarrito.selectCarrito(2);
+        Carrito carrito;
     %> 
     <!-- MAIN HEADER -->
     <div id="header">
@@ -69,14 +70,15 @@
                                 <div class="qty">3</div>
                             </a>
                             <div class="cart-dropdown">
-                                <div id="carrito" class="cart-list">
+                                <div class="cart-list">
                                     <%  
+                                        carrito = queryCarrito.selectCarrito(1);
                                         total = 0;
-                                        for(Producto producto:carrito){
+                                        for(Producto producto:carrito.getProductos()){
                                             total = total + producto.getPrecio();
                                     %>
                                       <!-- Productos en carrito -->
-                                    <div id="product-<%= producto.getIdProducto() %>" class="product-widget">
+                                    <div class="product-widget">
                                         <div class="product-img">
                                             <img src="<%= producto.getImage() %>">
                                         </div>
@@ -84,14 +86,19 @@
                                             <h3 class="product-name"><a href="#"><%= producto.getNombreProd() %></a></h3>
                                             <h4 class="product-price"><span class="qty">1x</span>$<%= producto.getPrecio() %></h4>
                                         </div>
-                                        <button onclick="borrar('product-<%= producto.getIdProducto() %>'+'@'+'<%= producto.getPrecio() %>')" class="delete"><i class="fa fa-close"></i></button>
+                                        <form action="carrito" method="post">
+                                            <input type="hidden" name="idDelete" 
+                                                   value="<%= producto.getIdProducto() %>"/>
+                                            <input type="submit" class="delete" value="x"/>
+                                        </form>
                                     </div>      
                                     <%  }
                                     %>
                                     <!-- Contador de productos en carro -->
                                     <!--  -->
                                 </div>
-                                    <small><%= carrito.size() %> producto(s)</small>
+                                    <small><%= carrito.getProductos().size() %> producto(s)</small>
+                                    <% carrito.getProductos().clear(); %>
                                     <h5 id="total">SUBTOTAL: $<%= total %></h5>
                                 <div class="cart-btns">
                                     <form>

@@ -8,6 +8,7 @@
 <%@page import="Model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Model.GestorBD" %> 
+<%@page import="Controller.Carrito"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +38,7 @@
         <jsp:include page="header.jsp" />
         <%! 
             GestorBD queries = new GestorBD();
-            ArrayList<Producto> productos =  queries.selectProducts();
+            ArrayList<Producto> productos;
         %>
         
         <!-- Contenido de index (articulos) -->
@@ -62,6 +63,7 @@
                                     <div class="products-slick" data-nav="#slick-nav-1">
                                         <!-- product -->
                                         <%
+                                            productos =  queries.selectProducts();
                                             for(Producto producto:productos){
                                                 %>
                                                 <div class="product">
@@ -85,10 +87,11 @@
                                                         <% String send = String.valueOf(producto.getIdProducto())
                                                                     +"@"+producto.getImage()+"@"+producto.getNombreProd()
                                                                     +"@"+producto.getPrecio(); %>
-                                                        <button onclick="add('<%= send %>')" class="add-to-cart-btn">
-                                                            <i class="fa fa-shopping-cart">        
-                                                            </i> Añadir al carrito
-                                                        </button>
+                                                        <form action="carrito" method="post">
+                                                            <input type="hidden" value="<%= producto.getIdProducto() %>" name="id"/>
+                                                            <input type="submit"  value="Añadir al carrito" 
+                                                                   class="add-to-cart-btn" />
+                                                        </form>
                                                     </div>
                                                 </div>
                                                 
@@ -145,6 +148,7 @@
                 </div>
                     <%
                         }
+                    productos.clear();
                     %>
                     <!-- /product -->
             </div>
@@ -153,37 +157,6 @@
         <div style="clear:both"></div>
         <jsp:include page="footer.jsp"/>
         <!-- Scripts -->
-        <script>
-            function add(x){
-                var propiedades = x.split("@");
-                var header = document.getElementById("carrito");
-                var nuevo = "<div id='product-"+propiedades[0]+"' class='product-widget'>"+
-                                        "<div class='product-img'>"+
-                                            "<img src="+propiedades[1]+">"+
-                                        "</div>"+
-                                        "<div class='product-body'>"+
-                                            "<h3 class='product-name'><a href='#'>"+propiedades[2]+"</a></h3>"+
-                                            "<h4 class='product-price'><span class='qty'>1x</span>$"+propiedades[3]+"</h4>"+
-                                        "</div>"+
-                                        "<button onclick=\"borrar('product-"+propiedades[0]+"@"+propiedades[3]+"')\" class='delete'><i class='fa fa-close'></i></button>"+
-                                    "</div>" ;
-                header.innerHTML += nuevo;
-                var totaltxt = document.getElementById("total").innerHTML;
-                var mounts = totaltxt.split("$");
-                var total = parseInt(mounts[1])+parseInt(propiedades[3]);
-                document.getElementById("total").innerHTML ="SUBTOTAL: $"+ total;
-            }
-            function borrar(x){
-                var carrito = document.getElementById("carrito");
-                var propiedades = x.split("@");
-                var elemento = document.getElementById(propiedades[0])
-                var totaltxt = document.getElementById("total").innerHTML;
-                var mounts = totaltxt.split("$");
-                var total = parseInt(mounts[1])-parseInt(propiedades[1]);
-                document.getElementById("total").innerHTML ="SUBTOTAL: $"+ total;
-                carrito.removeChild(elemento);
-            }
-        </script>
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/slick.min.js"></script>
