@@ -72,7 +72,7 @@
                             <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <%  
-                                        carrito = queryCarrito.selectCarrito(1);
+                                        carrito = queryCarrito.selectCarrito(2);
                                         total = 0;
                                         for(Producto producto:carrito.getProductos()){
                                             total = total + producto.getPrecio();
@@ -88,7 +88,7 @@
                                         </div>
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="idDelete" 
-                                                   value="<%= producto.getIdProducto() %>"/>
+                                                   value="<%= producto.getIdPc() %>"/>
                                             <input type="submit" class="delete" value="x"/>
                                         </form>
                                     </div>      

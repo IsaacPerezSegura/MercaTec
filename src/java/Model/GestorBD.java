@@ -126,12 +126,10 @@ public class GestorBD {
         }
         return carrito;
     }
-    public void insertProduct(int idUsuario, int idProducto){
+    public void insertProductCarrito(int idUsuario, int idProducto){
         try {
-            ps = conexion.prepareStatement("select carrito.idCarrito " +
-                "from usuario inner join carrito " +
-                "on usuario.idUsuario = carrito.idUsuario " +
-                "where usuario.idUsuario=?;"
+            ps = conexion.prepareStatement("select idCarrito from carrito"
+                    + " where idUsuario=?"
             );
             ps.setInt(1, idUsuario);
             result = ps.executeQuery();
@@ -148,24 +146,14 @@ public class GestorBD {
             System.out.println(ex);
         }
     }
-    public void deleteProduct(int idUsuario, int idProducto){
+    public void deleteProductCarrito(int idPC){
         try {
-            ps = conexion.prepareStatement("select carrito.idCarrito " +
-                "from usuario inner join carrito " +
-                "on usuario.idUsuario = carrito.idUsuario " +
-                "where usuario.idUsuario=?;"
-            );
-            ps.setInt(1, idUsuario);
-            result = ps.executeQuery();
-            int idCarrito = 0;
-            if(result.next()){
-                idCarrito = result.getInt(1);
+            ps = conexion.prepareStatement("delete from productos_carrito"
+                    + " where id=?");
+            ps.setInt(1,idPC);
+            if(ps.executeUpdate()!=0){
+                System.out.println("Eliminado del carrito");
             }
-            ps = conexion.prepareStatement("delete from productos_carrito "
-                    + "where idProducto=? and idCarrito=?");
-            ps.setInt(1, idProducto);
-            ps.setInt(2, idCarrito);
-            ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
         }

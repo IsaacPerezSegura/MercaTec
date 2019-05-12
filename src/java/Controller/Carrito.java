@@ -34,9 +34,9 @@ public class Carrito extends HttpServlet {
         
         GestorBD queries = new GestorBD();
         if(request.getParameter("id")!=null){
-            queries.insertProduct(1,Integer.parseInt(request.getParameter("id")));
+            queries.insertProductCarrito(2,Integer.parseInt(request.getParameter("id")));
         }else if(request.getParameter("idDelete")!=null){
-            queries.deleteProduct(1,Integer.parseInt(request.getParameter("idDelete")));
+            queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
         }
         response.sendRedirect(request.getContextPath());
     }
