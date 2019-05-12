@@ -48,15 +48,12 @@
                                 <form action="login.jsp">
                                     <input type="submit" value="Iniciar sesión"/>
                                 </form>
-                                <form action="Logout">
-                                    <input type="submit" value="Salir sesión"/>
-                                </form>
                                 <%
                             }else{%>
                                 <form action="cuenta.jsp">
                                     <input type="submit" value="Mi cuenta"/>
                                 </form>
-                                <form action="index.jsp">
+                                <form action="logout.jsp">
                                     <input type="submit" value="Cerrar sesión"/>
                                 </form>
                             <% }
