@@ -84,9 +84,6 @@
                                                         </div>
                                                     </div>
                                                     <div  class="add-to-cart">
-                                                        <% String send = String.valueOf(producto.getIdProducto())
-                                                                    +"@"+producto.getImage()+"@"+producto.getNombreProd()
-                                                                    +"@"+producto.getPrecio(); %>
                                                         <form action="carrito" method="post">
                                                             <input type="hidden" value="<%= producto.getIdProducto() %>" name="id"/>
                                                             <input type="submit"  value="Añadir al carrito" 
@@ -94,8 +91,6 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                                
-                                                
                                                 <%
                                             }
                                         %>
