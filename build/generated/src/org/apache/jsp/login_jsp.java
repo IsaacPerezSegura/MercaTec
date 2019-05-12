@@ -47,7 +47,7 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<!DOCTYPE html>\r\n");
       out.write("<html lang=\"en\">\r\n");
       out.write("<head>\r\n");
-      out.write("\t<title>Login V19</title>\r\n");
+      out.write("\t<title>Login MercaTec</title>\r\n");
       out.write("\t<meta charset=\"UTF-8\">\r\n");
       out.write("\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n");
       out.write("<!--===============================================================================================-->\t\r\n");
@@ -138,9 +138,6 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t</div>\r\n");
       out.write("\t</div>\r\n");
       out.write("\t\r\n");
-      out.write("\r\n");
-      out.write("<!--===============================================================================================-->\r\n");
-      out.write("\t<script src=\"js/main_login.js\"></script>\r\n");
       out.write("\r\n");
       out.write("</body>\r\n");
       out.write("</html>");
