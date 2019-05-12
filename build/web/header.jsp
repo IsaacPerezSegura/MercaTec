@@ -25,7 +25,10 @@
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/font-awesome.min.css">
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="<%= request.getContextPath()%>/css/style.css"/>
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath()%>/css/style.css"/>
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath()%>/css/car.css"/>
     </head>
 <header>
     <%!
@@ -113,6 +116,8 @@
                                             <h4 class="product-price"><span class="qty">1x</span>$<%= producto.getPrecio() %></h4>
                                         </div>
                                         <form action="carrito" method="post">
+                                            <input type="hidden" name="requestURL" 
+                                                value="<%= request.getRequestURI() %>" />
                                             <input type="hidden" name="idDelete" 
                                                    value="<%= producto.getIdPc() %>"/>
                                             <input type="submit" class="delete" value="x"/>

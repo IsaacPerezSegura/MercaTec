@@ -62,6 +62,8 @@
                                     </div>
                                     <div  class="add-to-cart">
                                         <form action="carrito" method="post">
+                                            <input type="hidden" name="requestURL" 
+                                                value="<%= request.getRequestURI() %>" />
                                             <input type="hidden" value="<%= producto.getIdProducto() %>" 
                                                    name="id"/>
                                             <input type="submit"  value="Añadir al carrito" 
@@ -108,12 +110,6 @@
                         </a>
                     </h3>
                     <h4 class="product-price">$<%= producto.getPrecio()%></h4>
-                    <div class="product-rating">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
                     <div class="product-btns">
                         <button class="quick-view">
                             <i class="fa fa-eye">
@@ -127,6 +123,8 @@
                 </div>
                 <div class="add-to-cart">
                     <form action="carrito" method="post">
+                        <input type="hidden" name="requestURL" 
+                               value="<%= request.getRequestURI() %>" />
                         <input type="hidden" value="<%= producto.getIdProducto()%>" name="id"/>
                         <input type="submit"  value="Añadir al carrito" 
                                class="add-to-cart-btn" />

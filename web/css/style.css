@@ -1020,6 +1020,7 @@ textarea.input {
 }
 
 .product .add-to-cart {
+    width: 99%;
   position: absolute;
   left: 1px;
   right: 1px;
@@ -1042,10 +1043,11 @@ textarea.input {
 }
 
 .product .add-to-cart .add-to-cart-btn {
+  width: 100%;
   position: relative;
   border: 2px solid transparent;
   height: 40px;
-  padding: 0 30px;
+  padding: 0 5%;
   background-color: #ef233c;
   color: #FFF;
   text-transform: uppercase;

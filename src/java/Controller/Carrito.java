@@ -38,14 +38,21 @@ public class Carrito extends HttpServlet {
                 queries.insertProductCarrito(
                         Integer.parseInt(request.getSession().getAttribute("id").toString())
                         ,Integer.parseInt(request.getParameter("id")));
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getParameter("requestURL"));
             }else if(request.getParameter("idDelete")!=null){
                 queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getParameter("requestURL"));
             }else if(request.getParameter("show")!=null){
                 response.sendRedirect("showCar.jsp");
             }else if(request.getParameter("buy")!=null){
                 
+            }else if(request.getParameter("idDeleteT")!=null){
+                queries.deleteProductCarrito(
+                        Integer.parseInt(request.getParameter("idDeleteT"))
+                );
+                response.sendRedirect(request.getParameter("requestURL"));
+            }else if(request.getParameter("stillShopping")!=null){
+                response.sendRedirect("index.jsp");
             }
         }else{
             response.sendRedirect("login.jsp");
