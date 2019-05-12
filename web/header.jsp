@@ -53,7 +53,7 @@
                                 <form action="cuenta.jsp">
                                     <input type="submit" value="Mi cuenta"/>
                                 </form>
-                                <form action="logout.jsp">
+                                <form action="Logout">
                                     <input type="submit" value="Cerrar sesión"/>
                                 </form>
                             <% }

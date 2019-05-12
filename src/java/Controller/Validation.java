@@ -1,4 +1,4 @@
-    package Controller;
+package Controller;
 
 import Model.GestorBD;
 import java.io.IOException;
@@ -22,26 +22,23 @@ public class Validation extends HttpServlet {
             throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try {
+        
             // Primero traerse los parámetros del html.
             String usuario = request.getParameter("user");
             String pass = request.getParameter("password");
             // Llamar al gestor de base de datos para realizar la búsqueda.
-            GestorBD gestor = new GestorBD();
-            if(gestor.getUsuario(usuario, pass)){
+                     GestorBD gestor = new GestorBD();
+             int id  = gestor.getUsuario(usuario, pass);
+            if(id != 0){
                 //Si regresa un sí, se crea una sesión de usuario.
                 HttpSession session = request.getSession(true);
-                session.setAttribute( "usuario", usuario );
-                response.sendRedirect("index.jsp");
+                session.setAttribute( "id", id );
+                response.sendRedirect("newjsp.jsp");
             }else{
                          RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			out.println("<font color=red>El usuario o contraseña son incorrectos.</font>");
 			rd.include(request, response);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally{
-            out.close();
-        }
+            
     }
 }

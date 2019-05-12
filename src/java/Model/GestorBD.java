@@ -28,20 +28,24 @@ public class GestorBD {
         conexion = ConexionBD.obtenerConexion();
     }
     
-    public boolean getUsuario(String us, String pass){
+    public int getUsuario(String us, String pass){
+        int id = 0;
         try {
-            String sql = "SELECT * FROM Usuario WHERE usuario = ' "+us+" ' AND contraseña = '"+pass+"' AND estado = 1";
+            String sql = "SELECT idUsuario FROM Usuario WHERE usuario = '"+us+"' AND contraseña = '"+pass+"' AND estado = 1";
+            System.out.println("Tu sentencia es:" + sql);
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
-            rs.next();
+            if(rs.next()){
+                id = rs.getInt("idUsuario");
+                System.out.println("Encontré el id: " + id);
+            }
             rs.close();
             ps.close();
-            return true;
         } catch (Exception e) {
             System.out.println("Error al traer el usuario. Favor de checar.");
             e.printStackTrace();
-        return false;
         }
+        return id;
     }
     
     public ArrayList<Producto> selectProducts(){
@@ -167,3 +171,4 @@ public class GestorBD {
         }
     }
 }
+
