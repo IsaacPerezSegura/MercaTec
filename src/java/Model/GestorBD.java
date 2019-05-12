@@ -89,10 +89,12 @@ public class GestorBD {
     }
     public Carrito selectCarrito(int id){
         productos = new ArrayList();
+        carrito = new Carrito();
         try {
+            int idPC = 0;
             ps = conexion.prepareStatement("select productos_carrito.id,productos.idProducto"
                     + ", productos.nombreProd, "
-                    + "productos.imagenProd, productos.decripcion, productos.precio,"
+                    + "productos.imagenProd, productos.descripcion, productos.precio,"
                     + " productos.existencia, productos.unidades " +
                 "from Productos_Carrito inner join carrito " +
                 "on carrito.idCarrito = Productos_Carrito.idCarrito inner join usuario " +
@@ -104,6 +106,7 @@ public class GestorBD {
             result = ps.executeQuery();
             while (result.next()) {
                 productos.add(new Producto(
+                        result.getInt(1),
                         result.getInt(2), 
                         result.getString(3), 
                         result.getBlob(4), 
@@ -113,7 +116,7 @@ public class GestorBD {
                         result.getInt(8)
                 ));
             }
-            carrito = new Carrito(productos,result.getInt(1));
+            carrito.setProductos(productos);
         } catch (SQLException ex) {
             System.out.println(ex);
         }

@@ -12,6 +12,7 @@ public class Producto {
     private int existencia;
     private int unidades;
     private String image;
+    private int idPc;
     
     public Producto(int idProducto, String nombreProd, Blob imagenProd, String decripción, double precio, int existencia, int unidades) {
         this.idProducto = idProducto;
@@ -27,8 +28,33 @@ public class Producto {
             System.out.println(ex);
         }
     }
+    public Producto(int idPc, int idProducto, String nombreProd, Blob imagenProd, 
+            String decripción, double precio, int existencia,
+            int unidades) {
+        this.idProducto = idProducto;
+        this.nombreProd = nombreProd;
+        this.imagenProd = imagenProd;
+        this.decripción = decripción;
+        this.precio = precio;
+        this.existencia = existencia;
+        this.unidades = unidades;
+        try {
+            this.image = "data:image/png;base64,"+new String(imagenProd.getBytes(1, (int)imagenProd.length()));
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        this.idPc=idPc;
+    }
     public Producto(){
         
+    }
+
+    public int getIdPc() {
+        return idPc;
+    }
+
+    public void setIdPc(int idPc) {
+        this.idPc = idPc;
     }
 
     public String getImage() {
