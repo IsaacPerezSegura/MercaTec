@@ -1,4 +1,4 @@
-package Controller;
+    package Controller;
 
 import Model.GestorBD;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class Validation extends HttpServlet {
                 session.setAttribute( "usuario", usuario );
                 response.sendRedirect("index.jsp");
             }else{
-                         RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
 			out.println("<font color=red>El usuario o contraseña son incorrectos.</font>");
 			rd.include(request, response);
             }

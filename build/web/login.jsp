@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V19</title>
+	<title>Login MercaTec</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -78,21 +78,21 @@
 	</div>
 	
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/animsition/js/animsition.min.js"></script>
+	<script src="vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/bootstrap/js/popper.js"></script>
-	<script src="<%= request.getContextPath()%>/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/select2/select2.min.js"></script>
+	<script src="vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/daterangepicker/moment.min.js"></script>
-	<script src="<%= request.getContextPath()%>/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/vendor/countdowntime/countdowntime.js"></script>
+	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-	<script src="<%= request.getContextPath()%>/js/main_login.js"></script>
+	<script src="js/main_login.js"></script>
 
 </body>
 </html>
