@@ -13,7 +13,7 @@ public class ConexionBD {
     //cambiar de acuerdo a su nombre de usuario y contraseña
     private static Connection conexion;
     private static final String database = "mercatec";
-    private static final String user = "isaac";
+    private static final String user = "root";
     private static final String password = "";
 
     public static Connection obtenerConexion() {

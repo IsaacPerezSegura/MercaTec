@@ -24,9 +24,9 @@ public class Logout extends HttpServlet{
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
                  response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("Gracias, Tu sesión fue destruida satisfactoriamente.");
+		PrintWriter out = response.getWriter();                
 		HttpSession session = request.getSession(false);
 		session.removeAttribute("usuario");
+                response.sendRedirect("login.jsp");
     }
 }
