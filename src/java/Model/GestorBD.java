@@ -124,10 +124,8 @@ public class GestorBD {
     }
     public void insertProductCarrito(int idUsuario, int idProducto){
         try {
-            ps = conexion.prepareStatement("select carrito.idCarrito " +
-                "from usuario inner join carrito " +
-                "on usuario.idUsuario = carrito.idUsuario " +
-                "where usuario.idUsuario=?;"
+            ps = conexion.prepareStatement("select idCarrito from carrito"
+                    + " where idUsuario=?"
             );
             ps.setInt(1, idUsuario);
             result = ps.executeQuery();
