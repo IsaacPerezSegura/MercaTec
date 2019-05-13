@@ -12,8 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author Aideé Alvarez
@@ -24,7 +22,7 @@ public class Logout extends HttpServlet{
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
                  response.setContentType("text/html");
-		request.getSession().invalidate();
-		response.sendRedirect("index.jsp");
+		 request.getSession().invalidate();
+		 response.sendRedirect("index.jsp");
     }
 }
