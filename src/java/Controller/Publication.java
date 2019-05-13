@@ -11,14 +11,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.Part;
+import Model.GestorBD;
+import Model.Producto;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.sql.Blob;
+import java.util.Base64;
+import javax.imageio.ImageIO;
+import javax.servlet.annotation.MultipartConfig;
 /**
  *
  * @author Isaac Perez
  */
-@WebServlet(name = "MyAccount", urlPatterns = {"/MyAccount"})
-public class MyAccount extends HttpServlet {
-
+@WebServlet(name = "Publication", urlPatterns = {"/Publication"})
+@MultipartConfig
+public class Publication extends HttpServlet {
+    private Part imagen;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,8 +39,34 @@ public class MyAccount extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
+       String nombre = request.getParameter("nombre");
+       String descripcion = request.getParameter("descripcion");
+       double precio = Double.parseDouble(request.getParameter("precio"));
+       int unidades = Integer.parseInt(request.getParameter("unidades"));
+       Part imagen = request.getPart("imagen");
+       GestorBD query = new GestorBD();
+       
+       String extension[] = imagen.getContentType().split("/");
+        String text="";
+        try {
+
+            BufferedImage image = ImageIO.read(imagen.getInputStream());
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(image, extension[1], outputStream);
+            text = new String(Base64.getEncoder().encode(outputStream.toByteArray()));
+        }catch(Exception e){
+                System.out.println(e);
+        }
+        int id = (int) request.getSession().getAttribute("id");
+        query.insertProduct(id, new Producto(
+                nombre,
+                text,
+                descripcion,
+                precio,
+                1,
+                unidades
+        ));
+        response.sendRedirect("myAccount.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

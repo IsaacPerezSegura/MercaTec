@@ -45,6 +45,15 @@ public class Producto {
         }
         this.idPc=idPc;
     }
+    public Producto(String nombre, String imagen, String descripcion, double precio
+    ,int existencia,int unidades){
+        this.nombreProd = nombre;
+        this.image = imagen;
+        this.decripción = descripcion;
+        this.precio = precio;
+        this.existencia = existencia;
+        this.unidades = unidades;
+    }
     public Producto(){
         
     }
@@ -60,7 +69,9 @@ public class Producto {
     public String getImage() {
         return image;
     }
-    
+    public void setImage(String image){
+        this.image = image;
+    }
     public int getIdProducto() {
         return idProducto;
     }
