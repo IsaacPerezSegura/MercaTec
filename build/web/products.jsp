@@ -29,7 +29,7 @@
                             <div class="products-slick" data-nav="#slick-nav-1">
                                 <!-- product -->
                                 <%
-                                    productos =  queries.selectProducts();
+                                    productos =  queries.selectProducts(-1);
                                     for(Producto producto:productos){
                                 %>
                                 <div class="product">

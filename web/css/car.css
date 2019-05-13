@@ -25,6 +25,9 @@
 #productsList tr td:nth-child(4){
     width:5%;
 }
+#productsList tr td:nth-child(5){
+    width:5%;
+}
 #productsList tr td form{
     width:100%;
 }

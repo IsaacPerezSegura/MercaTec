@@ -12,9 +12,8 @@
         
         <header id="menuUsuario" align="center">
             <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
-            <a href="<%= request.getContextPath() %>/index.jsp ">Mis publicaciones</a>
+            <a href="<%= request.getContextPath() %>/myPublication.jsp ">Mis publicaciones</a>
             <a href="<%= request.getContextPath() %>/publication.jsp ">Hacer publicación</a>
-            
         </header>
         <jsp:include page="footer.jsp" />
         <jsp:include page="scripts.html" />

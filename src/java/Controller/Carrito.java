@@ -42,7 +42,7 @@ public class Carrito extends HttpServlet {
                         ,Integer.parseInt(request.getParameter("id")));
                 response.sendRedirect(request.getParameter("requestURL"));
             }else if(request.getParameter("idDelete")!=null){
-                if(request.getParameter("searchValue")!=null){
+                if(!request.getParameter("searchValue").equals("")){
                     queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
                     String searchValue = request.getParameter("searchValue");
                     ArrayList<Producto> productos = queries.searchProducto(

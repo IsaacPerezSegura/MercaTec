@@ -127,5 +127,8 @@ public class Producto {
     public void setUnidades(int unidades) {
         this.unidades = unidades;
     }
-    
+    public String getImageClear(){
+        String delete= "data:image/png;base64,";
+        return image.substring(delete.length());
+    }
 }

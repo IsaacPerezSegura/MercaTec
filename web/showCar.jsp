@@ -12,7 +12,7 @@
             double total;
             GestorBD queryCarrito = new GestorBD();
             Carrito carrito;
-            int idUser = 0;
+            int idUser = -1;
         %> 
         <%
             idUser = Integer.parseInt(session.getAttribute("id").toString());
@@ -53,7 +53,6 @@
                 </td>
             </tr>
         <%    }
-            carrito.getProductos().clear();
         %>
         </table>
         <div id="actions">      
@@ -71,6 +70,7 @@
                             <input type="submit" value="Finalizar compra" />
                         </form>
                     <%}
+                    carrito.getProductos().clear();
                 %>
             </div>
         </div>

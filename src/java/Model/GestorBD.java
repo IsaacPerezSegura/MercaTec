@@ -51,20 +51,26 @@ public class GestorBD {
         return id;
     }
     
-    public ArrayList<Producto> selectProducts(){
+    public ArrayList<Producto> selectProducts(int id){
         productos = new ArrayList();
         try {
-            ps = conexion.prepareStatement("select * from productos");
+            if(id != -1){
+                ps = conexion.prepareStatement("select * from productos where idUsuario=?");
+                ps.setInt(1, id);
+            }else{
+                ps = conexion.prepareStatement("select * from productos");
+            }
+            
             result = ps.executeQuery();
             while (result.next()) {
                 productos.add(new Producto(
                         result.getInt(1), 
-                        result.getString(2), 
-                        result.getBlob(3), 
-                        result.getString(4), 
-                        result.getDouble(5), 
-                        result.getInt(6), 
-                        result.getInt(7)
+                        result.getString(3), 
+                        result.getBlob(4), 
+                        result.getString(5), 
+                        result.getDouble(6), 
+                        result.getInt(7), 
+                        result.getInt(8)
                 ));
                 
             }
@@ -81,12 +87,12 @@ public class GestorBD {
             while (result.next()) {
                 producto = new Producto(
                         result.getInt(1), 
-                        result.getString(2), 
-                        result.getBlob(3), 
-                        result.getString(4), 
-                        result.getDouble(5), 
-                        result.getInt(6), 
-                        result.getInt(7)
+                        result.getString(3), 
+                        result.getBlob(4), 
+                        result.getString(5), 
+                        result.getDouble(6), 
+                        result.getInt(7), 
+                        result.getInt(8)
                 );
             }
         } catch (SQLException ex) {
@@ -167,15 +173,15 @@ public class GestorBD {
             ps = conexion.prepareStatement("select * from productos");
             result = ps.executeQuery();
             while(result.next()){
-                if(result.getString(2).toLowerCase().contains(producto.toLowerCase())){
+                if(result.getString(3).toLowerCase().contains(producto.toLowerCase())){
                     productos.add(new Producto(
                         result.getInt(1), 
-                        result.getString(2), 
-                        result.getBlob(3), 
-                        result.getString(4), 
-                        result.getDouble(5), 
-                        result.getInt(6), 
-                        result.getInt(7)
+                        result.getString(3), 
+                        result.getBlob(4), 
+                        result.getString(5), 
+                        result.getDouble(6), 
+                        result.getInt(7), 
+                        result.getInt(8)
                     ));
                 }
                 
@@ -188,6 +194,7 @@ public class GestorBD {
     public void insertProduct(int id, Producto producto){
         try {
             ps = conexion.prepareStatement("insert into productos ("
+                    + "idUsuario,"
                     + "nombreProd,"
                     + "imagenProd,"
                     + "descripcion,"
@@ -195,13 +202,14 @@ public class GestorBD {
                     + "existencia,"
                     + "unidades"
                     + ") values ("
-                    + "?,?,?,?,1,?"
+                    + "?,?,?,?,?,1,?"
                     + ")");
-            ps.setString(1, producto.getNombreProd());
-            ps.setBytes(2, producto.getImage().getBytes());
-            ps.setString(3, producto.getNombreProd());
-            ps.setDouble(4, producto.getPrecio());
-            ps.setInt(5, producto.getUnidades());
+            ps.setInt(1, id);
+            ps.setString(2, producto.getNombreProd());
+            ps.setBytes(3, producto.getImage().getBytes());
+            ps.setString(4, producto.getDecripción());
+            ps.setDouble(5, producto.getPrecio());
+            ps.setInt(6, producto.getUnidades());
             if(ps.executeUpdate()!=0){
                 System.out.println("Producto insertado exitoso");
             }
@@ -209,5 +217,39 @@ public class GestorBD {
             System.out.println(ex);
         }
     }
+    public void deleteProduct(int idProducto){
+        try {
+            ps = conexion.prepareStatement("delete from productos where idProducto=?");
+            ps.setInt(1, idProducto);
+            if(ps.executeUpdate()!=0){
+                System.out.println("Eliminado");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    public void modifyProduct(Producto producto) {
+        try {
+            ps = conexion.prepareStatement("update productos set "
+                    + "nombreProd=?,"
+                    + "imagenProd=?,"
+                    + "descripcion=?,"
+                    + "precio=?,"
+                    + "existencia=?,"
+                    + "unidades=? where idProducto=?"
+            );
+            ps.setString(1,producto.getNombreProd());
+            ps.setBytes(2, producto.getImage().getBytes());
+            ps.setString(3, producto.getDecripción());
+            ps.setDouble(4, producto.getPrecio());
+            ps.setInt(5, producto.getExistencia());
+            ps.setInt(6, producto.getUnidades());
+            ps.setInt(7, producto.getIdProducto());
+            if (ps.executeUpdate() != 0) {
+                System.out.println("Producto insertado exitoso");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
 }
-
