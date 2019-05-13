@@ -26,6 +26,8 @@ public class GestorBD {
     private PreparedStatement ps;
     private ResultSet result;
     
+    public String typeUser = "";
+    
     public GestorBD(){
         conexion = ConexionBD.obtenerConexion();
     }
@@ -33,13 +35,13 @@ public class GestorBD {
     public int getUsuario(String us, String pass){
         int id = 0;
         try {
-            String sql = "SELECT idUsuario FROM Usuario WHERE usuario = '"+us+"' AND contraseña = '"+pass+"' AND estado = 1";
-            System.out.println("Tu sentencia es:" + sql);
+            String sql = "SELECT idUsuario, tipo FROM Usuario WHERE usuario = '"+us+"' AND contraseña = '"+pass+"' AND estado = 1";
+            System.out.println("Tu sentencia es: " + sql);
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){
                 id = rs.getInt("idUsuario");
-                System.out.println("Encontré el id: " + id);
+                typeUser = rs.getString("tipo");
             }
             rs.close();
             ps.close();

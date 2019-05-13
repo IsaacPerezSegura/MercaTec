@@ -29,10 +29,12 @@ public class Validation extends HttpServlet {
             // Llamar al gestor de base de datos para realizar la búsqueda.
                      GestorBD gestor = new GestorBD();
              int id  = gestor.getUsuario(usuario, pass);
+             String aux = gestor.typeUser;
             if(id != 0){
                 //Si regresa un sí, se crea una sesión de usuario.
                 HttpSession session = request.getSession(true);
                 session.setAttribute( "id", id );
+                session.setAttribute("type", aux);
                 response.sendRedirect("index.jsp");
             }else{
                          RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
