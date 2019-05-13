@@ -13,9 +13,9 @@
     text-align: center;
 }
 #productsList tr td:first-child{
-    background: transparent;
     text-align: center;
     width: 25%;
+    padding: 2%;
 }
 #productsList tr td img{
     width: 100%;

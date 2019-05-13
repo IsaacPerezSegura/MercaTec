@@ -45,12 +45,6 @@
                                         <h4 class="product-price">
                                             $<%= producto.getPrecio() %>
                                         </h4>
-                                        <div class="product-rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </div>
                                         <div class="product-btns">
                                             <button class="quick-view">
                                                 <i class="fa fa-eye"></i>

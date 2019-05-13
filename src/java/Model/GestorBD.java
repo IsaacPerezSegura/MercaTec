@@ -184,5 +184,29 @@ public class GestorBD {
         }
         return productos;
     }
+    public void insertProduct(int id, Producto producto){
+        try {
+            ps = conexion.prepareStatement("insert into productos ("
+                    + "nombreProd,"
+                    + "imagenProd,"
+                    + "descripcion,"
+                    + "precio,"
+                    + "existencia,"
+                    + "unidades"
+                    + ") values ("
+                    + "?,?,?,?,1,?"
+                    + ")");
+            ps.setString(1, producto.getNombreProd());
+            ps.setBytes(2, producto.getImage().getBytes());
+            ps.setString(3, producto.getNombreProd());
+            ps.setDouble(4, producto.getPrecio());
+            ps.setInt(5, producto.getUnidades());
+            if(ps.executeUpdate()!=0){
+                System.out.println("Producto insertado exitoso");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
 }
 

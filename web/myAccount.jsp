@@ -3,9 +3,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Mi cuenta</title>
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath() %>/css/myAccount.css" />
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <jsp:include page="header.jsp"/>
+        
+        <header id="menuUsuario" align="center">
+            <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
+            <a href="<%= request.getContextPath() %>/index.jsp ">Mis publicaciones</a>
+            <a href="<%= request.getContextPath() %>/publication.jsp ">Hacer publicación</a>
+            
+        </header>
+        <jsp:include page="footer.jsp" />
     </body>
 </html>
