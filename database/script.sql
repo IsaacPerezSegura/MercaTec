@@ -26,6 +26,7 @@ CREATE TABLE Tarjeta(
 
 CREATE TABLE Productos(
 	idProducto INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idUsuario INT(5) NOT NULL, -- Id del usuario que desea vender un producto.
     nombreProd VARCHAR(30) NOT NULL,
     imagenProd LONGBLOB NOT NULL, -- imagen del producto guardado como un blob.
     descripcion VARCHAR(70), 
@@ -88,3 +89,5 @@ ALTER TABLE Productos_Carrito add foreign key (idCarrito) references Carrito(idC
 ALTER TABLE Productos_Carrito add foreign key (idProducto) references Productos(idProducto);
 /* CLAVES FORÁNEAS DE COMPRA */
 ALTER TABLE Compra add foreign key (idCarrito) references Carrito(idCarrito);
+/* CLAVE FORÁNEA A PRODUCTOS*/
+ALTER TABLE Productos add foreign key (idUsuario) references Usuario(idUsuario);
