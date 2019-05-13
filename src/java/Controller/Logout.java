@@ -24,11 +24,7 @@ public class Logout extends HttpServlet{
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
                  response.setContentType("text/html");
-		PrintWriter out = response.getWriter();                
-		HttpSession session = request.getSession(false);
-		session.removeAttribute("id");
-                session.removeAttribute("type");
-                session.invalidate();
-                response.sendRedirect("login.jsp");
+		request.getSession().invalidate();
+		response.sendRedirect("index.jsp");
     }
 }
