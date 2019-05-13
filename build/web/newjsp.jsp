@@ -26,7 +26,9 @@ and open the template in the editor.
     </head>
     <body>
         <% int id = (int) session.getAttribute("id");
-            out.print("Hello, ID: " + id + ", Bienvenido al sistema");
+           String type = (String) session.getAttribute("type");
+            out.print("Hello, ID: " + id + ", Bienvenido al sistema <br>");
+            out.print("Okay, this is your type: " + type);
         %>
     </body>
 </html>

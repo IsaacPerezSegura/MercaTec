@@ -29,16 +29,17 @@ public class Validation extends HttpServlet {
             // Llamar al gestor de base de datos para realizar la búsqueda.
                      GestorBD gestor = new GestorBD();
              int id  = gestor.getUsuario(usuario, pass);
+             String aux = gestor.typeUser;
             if(id != 0){
-                //Si regresa un sí, se crea una sesión de usuario.
+                // Si regresa algo que no sea -1, se crea una sesión de usuario.
+                // y se obtiene su id con su tipo de usuario.
                 HttpSession session = request.getSession(true);
                 session.setAttribute( "id", id );
-                response.sendRedirect("index.jsp");
-            }else{
-                         RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-			out.println("<font color=red>El usuario o contraseña son incorrectos.</font>");
-			rd.include(request, response);
+                session.setAttribute("type", aux);
+                response.sendRedirect("newjsp.jsp");
+        }else{
+                request.setAttribute("LogError", "El usuario o contraseña son incorrectos");
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
-            
     }
 }
