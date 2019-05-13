@@ -61,5 +61,6 @@
                 }
             }	
         </script>
+        <jsp:include page="scripts.html"/>
     </body>
 </html>

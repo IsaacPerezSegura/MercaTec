@@ -17,5 +17,6 @@
             
         </header>
         <jsp:include page="footer.jsp" />
+        <jsp:include page="scripts.html" />
     </body>
 </html>
