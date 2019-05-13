@@ -61,4 +61,9 @@
 		</div>
 	</div>
 </body>
+<%
+        if (request.getAttribute("LogError") != null) {
+            out.print("<script>alert(\"" + request.getAttribute("LogError").toString() + "\")</script>");
+        }
+    %>
 </html>

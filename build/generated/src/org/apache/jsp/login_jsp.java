@@ -106,6 +106,12 @@ public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t</div>\r\n");
       out.write("\t</div>\r\n");
       out.write("</body>\r\n");
+
+        if (request.getAttribute("LogError") != null) {
+            out.print("<script>alert(\"" + request.getAttribute("LogError").toString() + "\")</script>");
+        }
+    
+      out.write("\r\n");
       out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

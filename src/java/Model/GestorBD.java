@@ -36,7 +36,6 @@ public class GestorBD {
         int id = 0;
         try {
             String sql = "SELECT idUsuario, tipo FROM Usuario WHERE usuario = '"+us+"' AND contraseña = '"+pass+"' AND estado = 1";
-            System.out.println("Tu sentencia es: " + sql);
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
             if(rs.next()){
