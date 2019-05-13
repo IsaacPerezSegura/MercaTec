@@ -36,7 +36,7 @@ public class Validation extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 session.setAttribute( "id", id );
                 session.setAttribute("type", aux);
-                response.sendRedirect("newjsp.jsp");
+                response.sendRedirect("index.jsp");
         }else{
                 request.setAttribute("LogError", "El usuario o contraseña son incorrectos");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
