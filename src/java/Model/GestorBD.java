@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -157,6 +159,30 @@ public class GestorBD {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+    }
+    public ArrayList<Producto> searchProducto(String producto){
+        productos = new ArrayList();
+        try {
+            ps = conexion.prepareStatement("select * from productos");
+            result = ps.executeQuery();
+            while(result.next()){
+                if(result.getString(2).toLowerCase().contains(producto.toLowerCase())){
+                    productos.add(new Producto(
+                        result.getInt(1), 
+                        result.getString(2), 
+                        result.getBlob(3), 
+                        result.getString(4), 
+                        result.getDouble(5), 
+                        result.getInt(6), 
+                        result.getInt(7)
+                    ));
+                }
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return productos;
     }
 }
 

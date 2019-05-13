@@ -8,6 +8,7 @@ package Controller;
 import Model.GestorBD;
 import Model.Producto;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Isaac Perez
  */
-@WebServlet(name = "carritoServlet", urlPatterns = {"/carrito"})
-public class Carrito extends HttpServlet {
+@WebServlet(name = "Search", urlPatterns = {"/Search"})
+public class Search extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,45 +34,39 @@ public class Carrito extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
         GestorBD queries = new GestorBD();
         if(request.getSession().getAttribute("id")!=null){
             if(request.getParameter("id")!=null){
                 queries.insertProductCarrito(
                         Integer.parseInt(request.getSession().getAttribute("id").toString())
                         ,Integer.parseInt(request.getParameter("id")));
-                response.sendRedirect(request.getParameter("requestURL"));
-            }else if(request.getParameter("idDelete")!=null){
-                if(request.getParameter("searchValue")!=null){
-                    queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
-                    String searchValue = request.getParameter("searchValue");
-                    ArrayList<Producto> productos = queries.searchProducto(
-                        searchValue
-                    );
-                    request.setAttribute("productos", productos);
-                    request.setAttribute("searchValue", searchValue);
-                    request.getRequestDispatcher("search.jsp").forward(request, response);
-                }else{
-                    queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
-                    response.sendRedirect(request.getParameter("requestURL"));
-                }
-            }else if(request.getParameter("show")!=null){
-                response.sendRedirect("showCar.jsp");
-            }else if(request.getParameter("buy")!=null){
-                
-            }else if(request.getParameter("idDeleteT")!=null){
-                queries.deleteProductCarrito(
-                        Integer.parseInt(request.getParameter("idDeleteT"))
+                refreshSearch(request,response);
+            }else if(request.getParameter("searchValue")!=null){
+                String searchValue = request.getParameter("searchValue");
+                ArrayList<Producto> productos = queries.searchProducto(
+                searchValue
                 );
-                response.sendRedirect(request.getParameter("requestURL"));
-            }else if(request.getParameter("stillShopping")!=null){
-                response.sendRedirect("index.jsp");
+                request.setAttribute("productos", productos);
+                request.setAttribute("searchValue", searchValue);
+                request.getRequestDispatcher("search.jsp").forward(request, response);
             }
-        }else{
-            response.sendRedirect("login.jsp");
         }
     }
-
+        
+    public void refreshSearch(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        GestorBD queries = new GestorBD();
+        String searchValue = request.getParameter("searchValue");
+        System.out.println("OBBBBTUVEEE "+searchValue);
+        ArrayList<Producto> productos = queries.searchProducto(
+            searchValue
+        );
+        request.setAttribute("productos", productos);
+        request.setAttribute("searchValue", searchValue);
+        request.getRequestDispatcher("search.jsp").forward(request, response);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

@@ -56,7 +56,16 @@
                 <div class="col-md-6">
                     <div class="header-search">
                         <form action="Search" method="post">
-                            <input class="input" placeholder="¡Encuentra lo que buscas!">
+                            <%
+                            String searchValue = "";
+                            if(request.getAttribute("searchValue")!=null){
+                                searchValue = request
+                                        .getAttribute("searchValue")
+                                        .toString();
+                            }
+                            %>
+                            <input class="input" placeholder="¡Encuentra lo que buscas!"
+                                   name="searchValue" value="<%= searchValue %>">
                             <button type="submit" class="search-btn">Buscar</button>
                         </form>
                     </div>
@@ -75,7 +84,7 @@
                                 </form>
                                 <%
                             }else{%>
-                                <form action="cuenta.jsp">
+                                <form action="myAccount.jsp">
                                     <input type="submit" value="Mi cuenta"/>
                                 </form>
                                 <form action="Logout">
@@ -120,6 +129,8 @@
                                                 value="<%= request.getRequestURI() %>" />
                                             <input type="hidden" name="idDelete" 
                                                    value="<%= producto.getIdPc() %>"/>
+                                            <input type="hidden"
+                                                       name="searchValue" value="<%= searchValue %>"/>
                                             <input type="submit" class="delete" value="x"/>
                                         </form>
                                     </div>      
