@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
 import Model.GestorBD;
 import Model.Producto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Isaac Perez
  */
-@WebServlet(name = "Search", urlPatterns = {"/Search"})
-public class Search extends HttpServlet {
+@WebServlet(name = "ShowPublication", urlPatterns = {"/ShowPublication"})
+public class ShowPublication extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,40 +29,34 @@ public class Search extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        GestorBD queries = new GestorBD();
-        if (request.getParameter("id") != null) {
-            if ((int)request.getSession().getAttribute("id") != -1) {
-                queries.insertProductCarrito(
-                        Integer.parseInt(request.getSession().getAttribute("id")
-                                .toString()), Integer.parseInt(request.getParameter("id")));
-                refreshSearch(request, response);
-            } else {
+        int idProducto;
+        int idUsuario = 0;
+        GestorBD query = new GestorBD();
+        Producto producto;
+        if(request.getParameter("idProducto")!=null){
+            idProducto = Integer.parseInt(request.getParameter("idProducto"));
+            producto = query.selectProduct(idProducto);
+            request.setAttribute("producto", producto);
+            request.setAttribute("idProductRequest", producto.getIdProducto());
+            request.getRequestDispatcher("showPublication.jsp").forward(request, response);
+        }else if(request.getParameter("addCar")!=null){
+            if((int)request.getSession().getAttribute("id")!=-1){
+                idUsuario = (int) request.getSession().getAttribute("id");    
+
+                idProducto = Integer.parseInt(request.getParameter("addCar"));
+                query.insertProductCarrito(
+                            idUsuario
+                            ,idProducto);
+                producto = query.selectProduct(idProducto);
+                request.setAttribute("producto", producto);
+                request.setAttribute("idProductRequest", producto.getIdProducto());
+                request.getRequestDispatcher("showPublication.jsp").forward(request, response);
+            }else{
                 response.sendRedirect("login.jsp");
             }
-        } else if (request.getParameter("searchValue") != null) {
-            String searchValue = request.getParameter("searchValue");
-            ArrayList<Producto> productos = queries.searchProducto(
-                    searchValue
-            );
-            request.setAttribute("productos", productos);
-            request.setAttribute("searchValue", searchValue);
-            request.getRequestDispatcher("search.jsp").forward(request, response);
         }
+    }
 
-    }
-        
-    public void refreshSearch(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        GestorBD queries = new GestorBD();
-        String searchValue = request.getParameter("searchValue");
-        ArrayList<Producto> productos = queries.searchProducto(
-            searchValue
-        );
-        request.setAttribute("productos", productos);
-        request.setAttribute("searchValue", searchValue);
-        request.getRequestDispatcher("search.jsp").forward(request, response);
-    }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

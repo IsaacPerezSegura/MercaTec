@@ -19,11 +19,11 @@
         <jsp:include page="header.jsp" />
         <%
             Producto producto = (Producto) request.getAttribute("producto");
-            String imagenDecodificada;
         %>
         <form action="MyAccount" method="post" id="newPublication" 
               enctype="multipart/form-data">
             <h3>Por favor ingresa todos los datos solicitados</h3>
+            <input type="hidden" name="id" value="<%= producto.getIdProducto() %>"/>
             <h5>
                 Nombre del producto: 
                 <input type="text" required="true" name="nombre" 
@@ -44,24 +44,20 @@
                 <input type="number" required="true" min="0" name="unidades" 
                        value="<%= producto.getUnidades() %>"/>
             </h5>
-            <% 
-                byte[] decodedBytes = Base64.getDecoder().decode(producto.getImageClear());
-                imagenDecodificada = new String(decodedBytes);
-                Part imagen;
-                System.out.println(imagenDecodificada);
-            %>
             <h5 style="display:flex;">
                 Selecciona una imagen:
                 <input type="file" id="image" onChange="loadImage()" 
                        style="margin-left: 5%" name="imagen"
                        >
+                <input type="hidden" name="imageActualValue" 
+                       value="<%= producto.getImage() %>"/>
                 <div id="imageContainer">
                     <output id="list">
-                        <img src="<%= producto.getImage() %>" value="<%= producto.getImage() %>"/>
+                        <img src="<%= producto.getImage() %>"/>
                     </output>
                 </div>
             </h5>
-            <input type="submit" value="Publicar" />
+            <button name="edit" value="1">Modificar</button>
         </form>
         
         

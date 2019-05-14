@@ -922,11 +922,13 @@ textarea.input {
   font-size: 14px;
 }
 
-.product .product-body .product-name>a {
+.product .product-body .product-name form input{
   font-weight: 700;
+  background: transparent;
+  border:none;
 }
 
-.product .product-body .product-name>a:hover, .product .product-body .product-name>a:focus {
+.product .product-body .product-name form input:hover, .product .product-body .product-name>a:focus {
   color: #D10024;
 }
 
@@ -1120,11 +1122,11 @@ textarea.input {
   font-size: 12px;
 }
 
-.product-widget .product-body .product-name>a {
+.product-widget .product-body .product-name form input {
   font-weight: 700;
 }
 
-.product-widget .product-body .product-name>a:hover, .product-widget .product-body .product-name>a:focus {
+.product-widget .product-body .product-name form input a:hover, .product-widget .product-body .product-name form inputa:focus {
   color: #D10024;
 }
 

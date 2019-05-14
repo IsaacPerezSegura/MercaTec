@@ -7,10 +7,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Publicaciones</title>
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath() %>/css/myAccount.css" />
     </head>
     <body>
         <jsp:include page="header.jsp" />
-
+        <header id="menuUsuario" align="center">
+            <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
+            <a href="<%= request.getContextPath() %>/myPublication.jsp ">Mis publicaciones</a>
+            <a href="<%= request.getContextPath() %>/publication.jsp ">Hacer publicación</a>
+        </header>
         <%!
             GestorBD query = new GestorBD();
             ArrayList<Producto> productos;
@@ -35,7 +41,12 @@
                     <img src="<%= producto.getImage()%>" />
                 </td>
                 <td>
-                    <h1><%= producto.getNombreProd()%></h1>
+                    <form action="ShowPublication" method="post">
+                        <input type="hidden" name="idProducto" 
+                               value="<%= producto.getIdProducto()%>"/>
+                        <input type="submit" 
+                               value="<%= producto.getNombreProd()%>"/>
+                    </form>
                 </td>
                 <td>
                     <h4>Precio: $<%= producto.getPrecio()%></h4>
@@ -50,7 +61,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="MyAccount" method="post">
+                    <form action="MyAccount" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="idEdit" 
                                value="<%= producto.getIdProducto() %>"/>
                         <input type="hidden" name="nombre"
@@ -76,7 +87,7 @@
             <div>
                 <%
                     if (productos.size() < 1) {%>
-                <form action="#" method="post">
+                <form action="publication.jsp" method="post">
                     <input type="submit" value="Realizar publicación" />
                 </form>
                 <%}

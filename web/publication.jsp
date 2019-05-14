@@ -11,9 +11,16 @@
         <title>Nuevo publicación</title>
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath() %>/css/myAccount.css" />
+        
     </head>
     <body>
         <jsp:include page="header.jsp" />
+        <header id="menuUsuario" align="center">
+            <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
+            <a href="<%= request.getContextPath() %>/myPublication.jsp ">Mis publicaciones</a>
+            <a href="<%= request.getContextPath() %>/publication.jsp ">Hacer publicación</a>
+        </header>
+        
         <form action="Publication" method="post" id="newPublication" 
               enctype="multipart/form-data">
             <h3>Por favor ingresa todos los datos solicitados</h3>
@@ -45,7 +52,6 @@
             </h5>
             <input type="submit" value="Publicar" />
         </form>
-        
         
         <jsp:include page="footer.jsp" />
         

@@ -1,0 +1,98 @@
+<%-- 
+    Document   : showPublication
+    Created on : 13/05/2019, 07:43:25 PM
+    Author     : Isaac Perez
+--%>
+
+<%@page import="Model.GestorBD"%>
+<%@page import="Model.Usuario"%>
+<%@page import="Model.Producto"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath() %>/css/showPublication.css"
+    </head>
+    <body>
+        <jsp:include page="header.jsp" />
+        <%!  
+            Producto producto;
+            Usuario usuario;
+            GestorBD query = new GestorBD();
+        %>
+        <% producto = (Producto)request.getAttribute("producto"); 
+            usuario = query.showUsuarioProduct(producto.getIdUsuario());
+        %>
+        <div id="ficha">
+            <img src="<%= producto.getImage() %>" />
+            <div align="center">
+                <h2><%= producto.getNombreProd() %></h2>
+                <p>10 opiniones</p>
+                <h3>Precio: $<%= producto.getPrecio() %></h3>
+                <br />
+                <h4>Descripción:</h4>
+                <h5><%= producto.getDecripción() %></h5>
+                <form name="unidadesForm">
+                    <%!
+                        int min = 0;
+                        int valueU=0;
+                    %>
+                    <%
+                        if(producto.getUnidades()>0){
+                            valueU = 1;
+                            min = 1;
+                        }else{
+                            valueU = 0;
+                            min = 0;
+                        }
+                    %>
+                    <br />
+                    Cantidad: 
+                    <input type="number" value="<%= valueU %>" 
+                           min="<%= min %>"
+                           max="<%= producto.getUnidades() %>">
+                    Unidades disponibles: <%= producto.getUnidades() %>
+                </form>
+                <footer align="left">
+                    <p>Nombre del vendedor: <%= usuario.getNombre() %></p>
+                    <p>Corre electornico del vendedor: <%= usuario.getCorreo() %></p>
+                </footer>
+                <div>
+                    <% if((int)session.getAttribute("id") == producto.getIdUsuario()){ %>
+                    <form action="MyAccount" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="idEdit" 
+                               value="<%= producto.getIdProducto() %>"/>
+                        <input type="hidden" name="nombre"
+                               value="<%= producto.getNombreProd() %>" />
+                        <input type="hidden" name="descripcion"
+                               value="<%= producto.getDecripción() %>"/>
+                        <input type="hidden" name="precio"
+                               value="<%= producto.getPrecio() %>"/>
+                        <input type="hidden" name="unidades"
+                               value="<%= producto.getUnidades() %>"/>
+                        <input type="hidden" name="imagen"
+                               value="<%= producto.getImage() %>"/>
+                        <input class="deleteInput" type="submit" 
+                               value="Modificar"
+                               alt="Modificar"/>
+                    </form>
+                    <% }else{ %>
+                    <form action="ShowPublication" method="post">
+                        <input type="hidden" name="addCar" value="<%= producto.getIdProducto() %>"/>
+                        <input type="submit" value="Agregar al carrito">
+                    </form>
+                    <form action="#" method="post">
+                        <input type="submit" value="Comprar">
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
+        <jsp:include page="footer.jsp" />
+        <jsp:include page="scripts.html" />
+    </body>
+</html>

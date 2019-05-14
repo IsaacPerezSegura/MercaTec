@@ -35,7 +35,7 @@ public class Carrito extends HttpServlet {
             throws ServletException, IOException {
         
         GestorBD queries = new GestorBD();
-        if(request.getSession().getAttribute("id")!=null){
+        if((int)request.getSession().getAttribute("id")!= -1){
             if(request.getParameter("id")!=null){
                 queries.insertProductCarrito(
                         Integer.parseInt(request.getSession().getAttribute("id").toString())
@@ -43,6 +43,7 @@ public class Carrito extends HttpServlet {
                 response.sendRedirect(request.getParameter("requestURL"));
             }else if(request.getParameter("idDelete")!=null){
                 if(!request.getParameter("searchValue").equals("")){
+                    System.out.println("ENTREEEEE desde busqueda");
                     queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
                     String searchValue = request.getParameter("searchValue");
                     ArrayList<Producto> productos = queries.searchProducto(
@@ -51,7 +52,15 @@ public class Carrito extends HttpServlet {
                     request.setAttribute("productos", productos);
                     request.setAttribute("searchValue", searchValue);
                     request.getRequestDispatcher("search.jsp").forward(request, response);
-                }else{
+                }else if(!request.getParameter("idProductRequest").equals("0")){
+                    queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
+                    int idProductRequest = Integer.parseInt(request.getParameter("idProductRequest"));
+                    Producto producto = queries.selectProduct(idProductRequest);
+                    request.setAttribute("producto", producto);
+                    request.setAttribute("idProductRequest", idProductRequest);
+                    request.getRequestDispatcher("showPublication.jsp").forward(request, response);
+                } else{
+                    int prueba = Integer.parseInt(request.getParameter("idProductRequest"));
                     queries.deleteProductCarrito(Integer.parseInt(request.getParameter("idDelete")));
                     response.sendRedirect(request.getParameter("requestURL"));
                 }
