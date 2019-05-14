@@ -87,7 +87,7 @@
             <div>
                 <%
                     if (productos.size() < 1) {%>
-                <form action="#" method="post">
+                <form action="publication.jsp" method="post">
                     <input type="submit" value="Realizar publicación" />
                 </form>
                 <%}
