@@ -16,7 +16,6 @@ import Model.GestorBD;
 import Model.Producto;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
 import java.util.Base64;
 import javax.imageio.ImageIO;
 import javax.servlet.annotation.MultipartConfig;
