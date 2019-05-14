@@ -60,6 +60,15 @@
                                         </form>
                                     </div>
                                     <div  class="add-to-cart">
+                                        <% if((int)session.getAttribute("id") == producto.getIdUsuario()){ %>
+                                            <form action="ShowPublication" method="post">
+                                                <input type="hidden" name="idProducto" 
+                                                       value="<%= producto.getIdProducto() %>"/>
+                                                <input type="submit" 
+                                                       value="Ver"
+                                                       class="add-to-cart-btn"/>
+                                            </form>
+                                        <% }else{ %>
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="requestURL" 
                                                 value="<%= request.getRequestURI() %>" />
@@ -68,6 +77,7 @@
                                             <input type="submit"  value="Añadir al carrito" 
                                                    class="add-to-cart-btn" />
                                         </form>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <%
@@ -123,15 +133,26 @@
                         </button>
                     </form>
                 </div>
-                <div class="add-to-cart">
-                    <form action="carrito" method="post">
-                        <input type="hidden" name="requestURL" 
-                               value="<%= request.getRequestURI() %>" />
-                        <input type="hidden" value="<%= producto.getIdProducto()%>" name="id"/>
-                        <input type="submit"  value="Añadir al carrito" 
-                               class="add-to-cart-btn" />
-                    </form>
-                </div>
+                   <div class="add-to-cart">
+                       <% if ((int) session.getAttribute("id") == producto.getIdUsuario()) {%>
+                       <form action="ShowPublication" method="post">
+                           <input type="hidden" name="idProducto" 
+                                  value="<%= producto.getIdProducto()%>"/>
+                           <input type="submit" 
+                                  value="Ver"
+                                  class="add-to-cart-btn"/>
+                       </form>
+                       <% } else {%>
+                       <form action="carrito" method="post">
+                           <input type="hidden" name="requestURL" 
+                                  value="<%= request.getRequestURI()%>" />
+                           <input type="hidden" value="<%= producto.getIdProducto()%>" 
+                                  name="id"/>
+                           <input type="submit"  value="Añadir al carrito" 
+                                  class="add-to-cart-btn" />
+                       </form>
+                       <% } %>
+                   </div>
             </div>
         </div>
         <%

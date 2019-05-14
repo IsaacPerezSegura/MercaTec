@@ -65,7 +65,7 @@ public class GestorBD {
             
             result = ps.executeQuery();
             while (result.next()) {
-                productos.add(new Producto(
+                producto = new Producto(
                         result.getInt(1), 
                         result.getString(3), 
                         result.getBlob(4), 
@@ -73,7 +73,9 @@ public class GestorBD {
                         result.getDouble(6), 
                         result.getInt(7), 
                         result.getInt(8)
-                ));
+                );
+                producto.setIdUsuario(result.getInt(2));
+                productos.add(producto);
                 
             }
         } catch (SQLException ex) {
