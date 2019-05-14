@@ -50,21 +50,26 @@
                                             </div>
                                             <div class="product-body">
                                                 <h3 class="product-name">
-                                                    <a href="#">
-                                                        <%= producto.getNombreProd()%>
-                                                    </a>
+                                                    <form action="ShowPublication" method="post">
+                                                        <input type="hidden" name="idProducto" 
+                                                               value="<%= producto.getIdProducto()%>"/>
+                                                        <input type="submit" 
+                                                               value="<%= producto.getNombreProd()%>"/>
+                                                    </form>
                                                 </h3>
                                                 <h4 class="product-price">
                                                     $<%= producto.getPrecio()%>
                                                 </h4>
-                                                <div class="product-btns">
+                                                <form action="ShowPublication" method="post" class="product-btns">
+                                                    <input type="hidden" name="idProducto" 
+                                                           value="<%= producto.getIdProducto()%>"/>
                                                     <button class="quick-view">
                                                         <i class="fa fa-eye"></i>
                                                         <span class="tooltipp">
                                                             Ver producto
                                                         </span>
                                                     </button>
-                                                </div>
+                                                </form>
                                             </div>
                                             <div  class="add-to-cart">
                                                 <form action="Search" method="post">

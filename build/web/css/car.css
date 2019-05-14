@@ -17,6 +17,17 @@
     width: 25%;
     padding: 2%;
 }
+#productsList tr td:nth-child(2) form input{
+    background: transparent;
+    border:none;
+    font-weight: bold;
+    font-size: 20px;
+    transition:all 0.3s;
+}
+#productsList tr td:nth-child(2) form input:hover{
+    transition:all 0.3s;
+    color:#D10024;
+}
 #productsList tr td img{
     width: 100%;
     margin: 5% 0;

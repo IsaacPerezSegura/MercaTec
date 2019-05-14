@@ -58,10 +58,13 @@
                         <form action="Search" method="post">
                             <%
                             String searchValue = "";
+                            int idProductRequest = 0;
                             if(request.getAttribute("searchValue")!=null){
                                 searchValue = request
                                         .getAttribute("searchValue")
                                         .toString();
+                            }else if(request.getAttribute("idProductRequest")!=null){
+                                idProductRequest = (int)request.getAttribute("idProductRequest");
                             }
                             %>
                             <input class="input" placeholder="¡Encuentra lo que buscas!"
@@ -77,7 +80,7 @@
                     <div class="header-ctn">
                         <div class="dropdown">
                             <%
-                            if(session.getAttribute("id") == null){
+                            if((int)session.getAttribute("id") == -1){
                                 %>
                                 <form action="login.jsp">
                                     <input type="submit" value="Iniciar sesión"/>
@@ -101,36 +104,46 @@
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Carrito</span>
                                 <!-- Icono que representa el numero de articulos en el carrito -->
-                                <div class="qty">3</div>
+                                <%  
+                                    if((int)session.getAttribute("id")!=-1){
+                                        carrito = queryCarrito.selectCarrito(
+                                                Integer.parseInt(
+                                                        session.getAttribute("id").toString()
+                                                ));
+                                 %>
+                                
+                                <div class="qty"><%= carrito.getProductos().size() %></div>
+                                
+                                <%   }
+                                %>
                             </a>
                             <div class="cart-dropdown">
                                 <div class="cart-list">
                                     <%  
                                         total = 0;
-                                        if(session.getAttribute("id")!=null){
-                                        carrito = queryCarrito.selectCarrito(
-                                                Integer.parseInt(
-                                                        session.getAttribute("id").toString()
-                                                ));
-                                        for(Producto producto:carrito.getProductos()){
-                                            total = total + producto.getPrecio();
+                                        if(carrito!=null){
+                                        for(Producto productoH:carrito.getProductos()){
+                                            total = total + productoH.getPrecio();
                                     %>
                                       <!-- Productos en carrito -->
                                     <div class="product-widget">
                                         <div class="product-img">
-                                            <img src="<%= producto.getImage() %>">
+                                            <img src="<%= productoH.getImage() %>">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-name"><a href="#"><%= producto.getNombreProd() %></a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$<%= producto.getPrecio() %></h4>
+                                            <h3 class="product-name"><a href="#"><%= productoH.getNombreProd() %></a></h3>
+                                            <h4 class="product-price"><span class="qty">1x</span>$<%= productoH.getPrecio() %></h4>
                                         </div>
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="requestURL" 
                                                 value="<%= request.getRequestURI() %>" />
                                             <input type="hidden" name="idDelete" 
-                                                   value="<%= producto.getIdPc() %>"/>
+                                                   value="<%= productoH.getIdPc() %>"/>
                                             <input type="hidden"
                                                        name="searchValue" value="<%= searchValue %>"/>
+                                            <input type="hidden"
+                                                       name="idProductRequest" 
+                                                       value="<%= idProductRequest %>"/>
                                             <input type="submit" class="delete" value="x"/>
                                         </form>
                                     </div>      

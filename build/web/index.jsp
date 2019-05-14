@@ -8,6 +8,9 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <% if(session.getAttribute("id")== null){
+            session.setAttribute("id", -1);
+        } %>
         <jsp:include page="header.jsp" />
         
         <jsp:include page="products.jsp" />

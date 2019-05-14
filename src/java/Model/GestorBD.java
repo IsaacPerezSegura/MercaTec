@@ -28,6 +28,8 @@ public class GestorBD {
     
     public String typeUser = "";
     
+    private Usuario usuario;
+    
     public GestorBD(){
         conexion = ConexionBD.obtenerConexion();
     }
@@ -84,7 +86,7 @@ public class GestorBD {
             ps = conexion.prepareStatement("select * from productos where idProducto=?");
             ps.setInt(1, id);
             result = ps.executeQuery();
-            while (result.next()) {
+            if (result.next()) {
                 producto = new Producto(
                         result.getInt(1), 
                         result.getString(3), 
@@ -94,6 +96,7 @@ public class GestorBD {
                         result.getInt(7), 
                         result.getInt(8)
                 );
+                producto.setIdUsuario(result.getInt(2));
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -251,5 +254,20 @@ public class GestorBD {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+    }
+    public Usuario showUsuarioProduct(int idUsuario){
+        usuario = new Usuario();
+        try {
+            ps = conexion.prepareStatement("select * from usuario where idUsuario=?");
+            ps.setInt(1,idUsuario);
+            result = ps.executeQuery();
+            if(result.next()){
+                usuario.setNombre(result.getString(2));
+                usuario.setCorreo(result.getString(6));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return usuario;
     }
 }

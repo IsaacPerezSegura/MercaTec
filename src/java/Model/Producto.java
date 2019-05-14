@@ -13,7 +13,8 @@ public class Producto {
     private int unidades;
     private String image;
     private int idPc;
-    
+    private int idUsuario;
+            
     public Producto(int idProducto, String nombreProd, Blob imagenProd, String decripción, double precio, int existencia, int unidades) {
         this.idProducto = idProducto;
         this.nombreProd = nombreProd;
@@ -58,6 +59,14 @@ public class Producto {
         
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     public int getIdPc() {
         return idPc;
     }

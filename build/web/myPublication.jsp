@@ -41,7 +41,12 @@
                     <img src="<%= producto.getImage()%>" />
                 </td>
                 <td>
-                    <h1><%= producto.getNombreProd()%></h1>
+                    <form action="ShowPublication" method="post">
+                        <input type="hidden" name="idProducto" 
+                               value="<%= producto.getIdProducto()%>"/>
+                        <input type="submit" 
+                               value="<%= producto.getNombreProd()%>"/>
+                    </form>
                 </td>
                 <td>
                     <h4>Precio: $<%= producto.getPrecio()%></h4>
