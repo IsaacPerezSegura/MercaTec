@@ -1,10 +1,12 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Aideé Alvarez
  */
-public class Usuario {
+public class Usuario implements Serializable{
     private int idUsuario;
     private String nombre;
     private String usuario;
@@ -13,15 +15,6 @@ public class Usuario {
     private String correo;
     private int status;
 
-    public Usuario(int idUsuario, String nombre, String usuario, String contraseña, String tipo, String correo, int status) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.usuario = usuario;
-        this.contraseña = contraseña;
-        this.tipo = tipo;
-        this.correo = correo;
-        this.status = status;
-    }
     public Usuario(int idUsuario, String nombre, String usuario, String contraseña, String tipo, String correo) {
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -29,8 +22,7 @@ public class Usuario {
         this.contraseña = contraseña;
         this.tipo = tipo;
         this.correo = correo;
-    }
-    
+    }   
     public Usuario(){
     }
 

@@ -6,15 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 
-/**
- *
- * @author Aideé Alvarez
- */
 public class GestorBD {
-    private Connection conexion;
+    private final Connection conexion;
     private ResultSet rs;
     private Statement st;
     private Producto producto;
@@ -27,13 +22,13 @@ public class GestorBD {
     private ResultSet result;
     
     public String typeUser = "";
-    
-    private Usuario usuario;
+        private Usuario usuario;
     
     public GestorBD(){
         conexion = ConexionBD.obtenerConexion();
     }
     
+    // Login
     public int getUsuario(String us, String pass){
         int id = 0;
         try {
@@ -46,13 +41,37 @@ public class GestorBD {
             }
             rs.close();
             ps.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al traer el usuario. Favor de checar.");
-            e.printStackTrace();
         }
         return id;
     }
-    
+   
+      // Usuarios.
+    public List<Usuario> getUsuarios(){
+        List<Usuario> users = new ArrayList<>();
+        try{
+            st = conexion.createStatement();
+            rs = st.executeQuery("SELECT * FROM Usuario WHERE estado = 1");
+            while(rs.next()){
+                Usuario us = new Usuario();
+                us.setIdUsuario(rs.getInt(1));
+                us.setNombre(rs.getString(2));
+                us.setUsuario(rs.getString(3));
+                us.setContraseña(rs.getString(4));
+                us.setTipo(rs.getString(5));
+                us.setCorreo(rs.getString(6));
+                users.add(us);
+            }
+            rs.close();
+            st.close();
+            return users;
+        }catch(SQLException e){
+            System.out.println("Exception caught in get users: " + e);
+            return null;
+        }
+    }
+   // Carrrito y Productos.
     public ArrayList<Producto> selectProducts(int id){
         productos = new ArrayList();
         try {

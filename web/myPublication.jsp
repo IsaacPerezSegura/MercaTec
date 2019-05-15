@@ -16,6 +16,14 @@
             <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
             <a href="<%= request.getContextPath() %>/myPublication.jsp ">Mis publicaciones</a>
             <a href="<%= request.getContextPath() %>/publication.jsp ">Hacer publicación</a>
+             <%
+                String admin =  session.getAttribute("type").toString();
+                if(admin.equals("Administrador")){
+                    System.out.println("Administrador entró aquí");
+            %>
+            <a href="<%= request.getContextPath() %>/reports.jsp "> Reportes</a>
+            <a href="<%= request.getContextPath() %>/users.jsp "> Usuarios</a>
+            <% } %>
         </header>
         <%!
             GestorBD query = new GestorBD();

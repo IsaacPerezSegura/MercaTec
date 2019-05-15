@@ -1,7 +1,6 @@
 create database mercatec;
 use mercatec;
 
-
 CREATE TABLE Usuario (
 	idUsuario INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
@@ -14,6 +13,10 @@ CREATE TABLE Usuario (
 
 INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
 (NULL, 'Aideé Alvarez', 'Aidee', '1234', 'Alumno', '15240528@itleon.edu.mx', 1);
+
+INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
+(NULL, 'Yahir Saldivar', 'Admin', '1234', 'Administrador', '15240528@itleon.edu.mx', 1);
+
 INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL, 1);
 SELECT * FROM Carrito;
 SELECT U.idUsuario, U.nombre, C.idCarrito FROM Usuario AS U INNER JOIN Carrito as C ON C.idUsuario = U.idUsuario;
