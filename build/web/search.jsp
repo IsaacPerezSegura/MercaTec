@@ -72,6 +72,15 @@
                                                 </form>
                                             </div>
                                             <div  class="add-to-cart">
+                                                <% if ((int) session.getAttribute("id") == producto.getIdUsuario()) {%>
+                                                <form action="ShowPublication" method="post">
+                                                    <input type="hidden" name="idProducto" 
+                                                           value="<%= producto.getIdProducto()%>"/>
+                                                    <input type="submit" 
+                                                           value="Ver"
+                                                           class="add-to-cart-btn"/>
+                                                </form>
+                                                <% } else {%>
                                                 <form action="Search" method="post">
                                                     <%
                                                     String searchValue = "";
@@ -90,6 +99,7 @@
                                                     <input type="submit"  value="Añadir al carrito" 
                                                            class="add-to-cart-btn" />
                                                 </form>
+                                                <% } %>
                                             </div>
                                         </div>
                                         <%

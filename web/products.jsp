@@ -7,6 +7,7 @@
 <%! 
             GestorBD queries = new GestorBD();
             ArrayList<Producto> productos;
+            int newsProducts = 0;
 %>
 <div class="section">
     <!-- container -->
@@ -29,28 +30,33 @@
                             <div class="products-slick" data-nav="#slick-nav-1">
                                 <!-- product -->
                                 <%
+                                    
                                     productos =  queries.selectProducts(-1);
-                                    for(Producto producto:productos){
+                                    newsProducts = 0;
+                                    if(productos.size()>=10){
+                                        newsProducts = (productos.size()-10);
+                                    }
+                                    for(int i = newsProducts; i<productos.size();i++){
                                 %>
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="<%= producto.getImage()%>">
+                                        <img src="<%= productos.get(i).getImage()%>">
                                     </div>
                                     <div class="product-body">
                                         <h3 class="product-name">
                                             <form action="ShowPublication" method="post">
                                                 <input type="hidden" name="idProducto" 
-                                                       value="<%= producto.getIdProducto() %>"/>
+                                                       value="<%= productos.get(i).getIdProducto() %>"/>
                                                 <input type="submit" 
-                                                       value="<%= producto.getNombreProd() %>"/>
+                                                       value="<%= productos.get(i).getNombreProd() %>"/>
                                             </form>
                                         </h3>
                                         <h4 class="product-price">
-                                            $<%= producto.getPrecio() %>
+                                            $<%= productos.get(i).getPrecio() %>
                                         </h4>
                                         <form action="ShowPublication" method="post" class="product-btns">
                                             <input type="hidden" name="idProducto" 
-                                                   value="<%= producto.getIdProducto() %>"/>
+                                                   value="<%= productos.get(i).getIdProducto() %>"/>
                                             <button class="quick-view">
                                                 <i class="fa fa-eye"></i>
                                                 <span class="tooltipp">
@@ -60,10 +66,10 @@
                                         </form>
                                     </div>
                                     <div  class="add-to-cart">
-                                        <% if((int)session.getAttribute("id") == producto.getIdUsuario()){ %>
+                                        <% if((int)session.getAttribute("id") == productos.get(i).getIdUsuario()){ %>
                                             <form action="ShowPublication" method="post">
                                                 <input type="hidden" name="idProducto" 
-                                                       value="<%= producto.getIdProducto() %>"/>
+                                                       value="<%= productos.get(i).getIdProducto() %>"/>
                                                 <input type="submit" 
                                                        value="Ver"
                                                        class="add-to-cart-btn"/>
@@ -72,7 +78,7 @@
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="requestURL" 
                                                 value="<%= request.getRequestURI() %>" />
-                                            <input type="hidden" value="<%= producto.getIdProducto() %>" 
+                                            <input type="hidden" value="<%= productos.get(i).getIdProducto() %>" 
                                                    name="id"/>
                                             <input type="submit"  value="Añadir al carrito" 
                                                    class="add-to-cart-btn" />

@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/header.jsp</file>
             <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/Search.java</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/index.jsp</file>
             <file>file:/F:/Documentos/Escuela/MercaTec/web/search.jsp</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/web/myAccount.jsp</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/web/myPublication.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/products.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Model/GestorBD.java</file>
         </group>
     </open-files>
 </project-private>

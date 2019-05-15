@@ -172,14 +172,14 @@ public class GestorBD {
             System.out.println(ex);
         }
     }
-    public ArrayList<Producto> searchProducto(String producto){
+    public ArrayList<Producto> searchProducto(String productoS){
         productos = new ArrayList();
         try {
             ps = conexion.prepareStatement("select * from productos");
             result = ps.executeQuery();
             while(result.next()){
-                if(result.getString(3).toLowerCase().contains(producto.toLowerCase())){
-                    productos.add(new Producto(
+                if(result.getString(3).toLowerCase().contains(productoS.toLowerCase())){
+                    producto = new Producto(
                         result.getInt(1), 
                         result.getString(3), 
                         result.getBlob(4), 
@@ -187,7 +187,9 @@ public class GestorBD {
                         result.getDouble(6), 
                         result.getInt(7), 
                         result.getInt(8)
-                    ));
+                    );
+                    producto.setIdUsuario(result.getInt(2));
+                    productos.add(producto);
                 }
                 
             }
