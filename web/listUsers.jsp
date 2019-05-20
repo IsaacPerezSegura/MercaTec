@@ -6,6 +6,9 @@
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath() %>/css/myAccount.css" />
         <title> Mostrar Usuarios</title>
+        <script>
+            function atras(){history.back();};
+        </script>
     </head>
     <body>
          <jsp:include page="header.jsp" />
@@ -48,16 +51,16 @@
             <td><%=us.getContraseña()%> </td>
             <td><%=us.getTipo() %> </td>
             <td><%=us.getCorreo() %> </td>
-            <td> <a href="#"> Eliminar </a></td>
+            <td> <a href="deleteUser?id=<%= us.getIdUsuario() %>"> Eliminar </a></td>
         </tr>
         <% } %>
        </table>
         <p> Número de Usuarios registrados: <b> <%= usuario.size() %> </b></p>
         <% usuario.clear(); %>
         <br>
-        <form action="#" method="POST">
-            <input type="submit" value="Regresar"/>
-        </form>
+        
+        <input type="submit" value="Regresar" onclick="atras();"/>
+        
         <jsp:include page="footer.jsp"/>
     </body>
 </html>

@@ -137,6 +137,40 @@ public class GestorBD {
         }
     }
     
+    public boolean deleteUserCar(int idCarrito){
+        try{
+            String sql = "DELETE FROM Carrito WHERE idCarrito = ?";
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idCarrito);
+            ps.execute();
+            ps.close();
+            return true;
+        }catch(Exception e){
+            System.out.println("Error caught in: delete user car DB. Check.");
+            return false;
+        }
+    }
+    
+    public int getIDCar(int idUser){
+        int idCar = 0;
+        try{
+            String sql = "SELECT idCarrito FROM Carrito WHERE idUsuario = ?";
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idUser);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                idCar = rs.getInt("idCarrito");
+            }
+            rs.close();
+            ps.close();
+            return idCar;
+        }catch(Exception e){
+            System.out.println("Error caught in: get id car from user in DB. Check");
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    
     
    // Carrrito y Productos, parte 2.
     public ArrayList<Producto> selectProducts(int id){
