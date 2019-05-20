@@ -30,7 +30,7 @@ public class ShowUsers extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try{
-           Collection <Usuario> users = new ArrayList<>();
+           Collection <Usuario> users = new ArrayList<Usuario>();
            GestorBD gestor = new GestorBD();
             users = gestor.getUsuarios();
            if(users != null){

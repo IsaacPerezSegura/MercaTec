@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorBD {
-    private final Connection conexion;
+    private Connection conexion;
     private ResultSet rs;
     private Statement st;
     private Producto producto;
@@ -67,7 +67,8 @@ public class GestorBD {
             st.close();
             return users;
         }catch(SQLException e){
-            System.out.println("Exception caught in get users: " + e);
+            System.out.println("Exception caught in get users: ");
+            e.printStackTrace();
             return null;
         }
     }
