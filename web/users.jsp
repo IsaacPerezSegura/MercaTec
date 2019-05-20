@@ -1,3 +1,4 @@
+<%@page import="Model.GestorBD"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,19 +22,25 @@
             <a href="<%= request.getContextPath() %>/users.jsp "> Usuarios</a>
             <% } %>
         </header>
+        <% 
+            GestorBD  gestor = new GestorBD();
+            int id  = gestor.getIDfromUser();
+        %>
         <form action="newUser" method="POST">
             <h3> Ingresa un nuevo usuario</h3>
+            <h5> ID: </h5>
+            <input type="text" name="id" value="<%= id %>" readonly="true" /> <br>
             <h5> Nombre: </h5>
             <input type="text" name="nombre" required /> <br>
             <h5> Usuario/Nickname: </h5>
-            <input type="text" name="nombre" required /> <br>
+            <input type="text" name="usuario" required /> <br>
             <h5> Contraseña: </h5>
-            <input type="text" name="nombre" required /> <br>
+            <input type="text" name="pass" required /> <br>
             <h5> Tipo: </h5>
-            <input type="radio" name="tipo" required /> Usuario
-            <input type="radio" name="tipo" required /> Administrador
+            <input type="radio" name="tipo" value="Alumno" required /> Alumno
+            <input type="radio" name="tipo" value="Administrador" required /> Administrador
             <h5> Correo: </h5>
-            <input type="text" name="nombre" required /> <br>
+            <input type="text" name="correo" required /> <br>
             <br>
             <input type="submit" value="Ingresar usuario">
         </form>

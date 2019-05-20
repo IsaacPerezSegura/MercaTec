@@ -96,3 +96,12 @@ ALTER TABLE Productos_Carrito add foreign key (idProducto) references Productos(
 ALTER TABLE Compra add foreign key (idCarrito) references Carrito(idCarrito);
 /* CLAVE FORÁNEA A PRODUCTOS*/
 ALTER TABLE Productos add foreign key (idUsuario) references Usuario(idUsuario);
+
+
+CREATE PROCEDURE getNextIDUser()
+ SELECT AUTO_INCREMENT
+ FROM information_schema.TABLES
+ WHERE TABLE_SCHEMA = "Mercatec"
+ AND TABLE_NAME = "Usuarios";
+
+ 

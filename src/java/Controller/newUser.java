@@ -5,6 +5,8 @@
  */
 package Controller;
 
+import Model.GestorBD;
+import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,30 +21,28 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "newUser", urlPatterns = {"/newUser"})
 public class newUser extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet newUser</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet newUser at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String id = request.getParameter("id");
+        int aux = Integer.parseInt(id);
+        System.out.println("Este es el ID (Servlet): " + aux);
+        String nombre     = request.getParameter("nombre");
+        String usuario    = request.getParameter("usuario");
+        String contraseña = request.getParameter("pass");
+        System.out.println(contraseña);
+        String tipo       = request.getParameter("tipo");
+        String correo     = request.getParameter("correo");
+        GestorBD query    = new GestorBD();
+        Carrito car       = new Carrito();
+        try  {
+            
+            if(query.insertUser(new Usuario(nombre,usuario,contraseña,tipo,correo))){
+                 query.insertUserCar(aux);
+                 response.sendRedirect("users.jsp");
+            }
+        } catch(Exception e){
+            System.out.println("Problem with new user servlet. Check");
+            e.printStackTrace();
         }
     }
 

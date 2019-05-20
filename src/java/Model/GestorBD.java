@@ -46,7 +46,6 @@ public class GestorBD {
         }
         return id;
     }
-   
       // Usuarios.
     public List<Usuario> getUsuarios(){
         List<Usuario> users = new ArrayList<>();
@@ -72,7 +71,74 @@ public class GestorBD {
             return null;
         }
     }
-   // Carrrito y Productos.
+    public boolean insertUser(Usuario usuario){
+        try{
+            String sql = "INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES \n" +
+                          "(NULL, ?,?,?,?,?,?);";
+            ps = conexion.prepareStatement(sql);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getUsuario());
+            ps.setString(3, usuario.getContraseña());
+            ps.setString(4, usuario.getTipo());
+            ps.setString(5, usuario.getCorreo());
+            ps.setInt(6, 1);
+            ps.execute();
+            ps.close();
+            return true;
+        } catch(Exception e){
+            System.out.println("Error caught in: Insertar Usuario BD. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean deleteUser(int id){
+        try{
+            String sql = "DELETE FROM Usuario WHERE idUsuario =" + id;
+            ps = conexion.prepareCall(sql);
+            ps.execute();
+            ps.close();
+            return true;
+        }catch(Exception e){
+            System.out.println("Error caught in: delete user. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public int getIDfromUser(){
+        int id = 0;
+        try{
+            st = conexion.createStatement();
+            rs = st.executeQuery("CALL getNextId;");
+            rs.next();
+            id = rs.getInt(1);
+            rs.close();
+            st.close();
+            return id;
+        }catch(Exception e){
+            System.out.println("Error caught in: get id from new user. Check.");
+            e.printStackTrace();
+            return -1;
+        }
+       
+    }
+    // Carrito, parte 1.
+    public boolean insertUserCar(int idUser){
+        try{
+            String sql = "INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL,?)";
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, idUser);
+            ps.execute();
+            ps.close();
+            return true;
+        }catch(Exception e){
+            System.out.println("Error caught in: insert user car.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+   // Carrrito y Productos, parte 2.
     public ArrayList<Producto> selectProducts(int id){
         productos = new ArrayList();
         try {
