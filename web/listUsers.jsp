@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device=width, initial-scale=1">
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath() %>/css/myAccount.css" />
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
         <title> Mostrar Usuarios</title>
         <script>
             function atras(){history.back();};
@@ -25,12 +27,16 @@
             <% } %>
         </header>
         <%@ page import= "Model.Usuario,java.util.Collection" %>
-        <h2> Los usuarios registrados son: </h2>
+      
        <% 
             Collection<Usuario> usuario = null;
             usuario = (Collection<Usuario>) request.getAttribute("Usuarios");
        %> 
-       <table cellpadding="5">
+       <div class="container">
+           <br>
+             <h2> Los usuarios registrados son: </h2>
+             <div class="table-responsive">
+                  <table cellpadding="5" class="table table-striped table-hover">
            <tr>
                <th> ID   </th>
                <th> Nombre </th>
@@ -55,12 +61,14 @@
         </tr>
         <% } %>
        </table>
+             </div>
         <p> Número de Usuarios registrados: <b> <%= usuario.size() %> </b></p>
         <% usuario.clear(); %>
         <br>
         
-        <input type="submit" value="Regresar" onclick="atras();"/>
-        
+        <input type="submit" class=" btn-default" value="Regresar" onclick="atras();"/>
+       </div>
+       <br> <br>
         <jsp:include page="footer.jsp"/>
     </body>
 </html>

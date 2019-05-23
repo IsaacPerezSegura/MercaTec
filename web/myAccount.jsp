@@ -30,14 +30,14 @@
            <h2> Mi cuenta</h2>
              <div class="row">
                 <a  href="#">
-                    <div class="col-sm-5 divStyle div">
+                    <div class="col-sm-4 col-xs-6 divStyle div">
                         <div class="images"> <img class="imgStyle" src="<%= request.getContextPath() %>/img/candado.png" alt=""></div>
                         <div><span>Inicio de Sesión</span></div>
                         <div class="colorSecondary"> <span>Editar inicio de sesión o nombre</span></div>
                     </div>
                 </a>
                  <a href="#">
-                     <div class="col-sm-5 divStyle div">
+                     <div class="col-sm-4 col-xs-6 divStyle div">
                          <div class="images"> <img class="imgStyle" src="<%= request.getContextPath() %>/img/tarjeta.png" alt=""></div>
                          <div><span> Opciones de pago</span></div>
                          <div class="colorSecondary"> <span>Editar o agregar métodos de pago </span></div>
