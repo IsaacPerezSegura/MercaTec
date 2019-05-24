@@ -46,6 +46,21 @@ public class GestorBD {
         }
         return id;
     }
+    
+    public String getNameUser(int id){
+        String aux = "";
+        try{
+            st = conexion.createStatement();
+            rs = st.executeQuery("SELECT nombre FROM Usuario WHERE idUsuario ="+id);
+            while(rs.next()){
+                aux = rs.getString("nombre");
+            }
+            return aux;
+        }catch(Exception e){
+            e.printStackTrace();
+            return aux;
+        }
+    }
       // Usuarios.
     public List<Usuario> getUsuarios(){
         List<Usuario> users = new ArrayList<>();
@@ -158,7 +173,7 @@ public class GestorBD {
             return false;
         }
     }
-    public List<Reportes> getUnqiueReport(int id){
+    public List<Reportes> getUniqueReport(int id){
         List<Reportes> reports = new ArrayList<>();
         try{
             st = conexion.createStatement();

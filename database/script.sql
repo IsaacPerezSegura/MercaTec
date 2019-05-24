@@ -1,6 +1,6 @@
 create database mercatec;
 use mercatec;
-
+select * from Reporte where idReporte = 2;
 CREATE TABLE Usuario (
 	idUsuario INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,

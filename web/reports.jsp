@@ -72,7 +72,7 @@
                         <td><%=r.getIdUsuario()%></td>
                         <td><%=r.getIdProducto()%></td>
                         <td><%=r.getMotivo()%></td>
-                        <td><a href="showRep?idR=<%= r.getIdReporte() %>"> Ver Reporte</a></td>
+                        <td><a href="showRep?idR=<%= r.getIdReporte() %>&idU=<%= r.getIdUsuario()%>"> Ver Reporte</a></td>
                         <td><a href="deleteReport?id=<%= r.getIdReporte() %>"> Eliminar Reporte</a></td>
                     </tr>
                     <%} }%>

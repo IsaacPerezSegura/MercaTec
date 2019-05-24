@@ -27,11 +27,14 @@ public class showRep extends HttpServlet {
             throws ServletException, IOException {
         GestorBD query = new GestorBD();
         int id = Integer.parseInt(request.getParameter("idR"));
+        int idUsuario = Integer.parseInt(request.getParameter("idU"));
         System.out.println(id);
         if (id != 0 || id != -1) {
             Collection<Reportes> reporte = new ArrayList<Reportes>();
             if (reporte != null) {
-                reporte = query.getUnqiueReport(id);
+                reporte = query.getUniqueReport(id);
+                String user = query.getNameUser(idUsuario);
+                request.setAttribute("idUsuario", user);
                 request.setAttribute("reportUnique", reporte);
                 request.getRequestDispatcher("/showReport.jsp").forward(request, response);
             }

@@ -39,7 +39,7 @@
         <%
             Collection<Reportes> show = null;
             show = (Collection<Reportes>) request.getAttribute("reportUnique");
-
+            String user = (String) request.getAttribute("idUsuario");
             for (Reportes rep : show) {
         %>
         <div class="container"> 
@@ -67,15 +67,25 @@
                                     value="<%=rep.getMotivo()%>" 
                                     readonly="true"/>
                 </div>
-                <div class="col-lg-12">
-                    Descripción:
-                    <textarea class="form-control" rows="4" style="resize:none;" 
-                              readonly="true"><%=rep.getDescripcion()%></textarea>
+                <div class="col-md-6">
+                    Usuario que reporta:  <input type="text" class="form-control"
+                                                 value="<%= user%>" 
+                                                 readonly="true"/>
                 </div>
+                 <div class="col-lg-12">
+                        Descripción:
+                        <textarea class="form-control" rows="4" style="resize:none;" 
+                                  readonly="true"><%=rep.getDescripcion()%></textarea>
+                    </div>
+                </div>
+                <br>
+                <form action="<%= request.getContextPath()%>/showPublication.jsp"  method="POST">
+                    <input type="submit" class="btn btn-danger"value="Eliminar producto">
+                </form>
+
+                <% }%>
             </div>
-            <% }%>
-        </div>
-        <jsp:include page="footer.jsp" />
+            <jsp:include page="footer.jsp" />
     </body>
 </html>
 
