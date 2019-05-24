@@ -22,7 +22,7 @@ public class GestorBD {
     private ResultSet result;
     
     public String typeUser = "";
-        private Usuario usuario;
+    private Usuario usuario;
     
     public GestorBD(){
         conexion = ConexionBD.obtenerConexion();
@@ -67,6 +67,30 @@ public class GestorBD {
             return users;
         }catch(SQLException e){
             System.out.println("Exception caught in get users: ");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+     public List<Reportes> getReports(){
+        List<Reportes> reports = new ArrayList<>();
+        try{
+            st = conexion.createStatement();
+            rs = st.executeQuery("SELECT * FROM Reporte");
+            while(rs.next()){
+                Reportes rep = new Reportes();
+                rep.setIdReporte(rs.getInt(1));
+                rep.setIdUsuario(rs.getInt(2));
+                rep.setIdProducto(rs.getInt(3));
+                rep.setMotivo(rs.getString(4));
+                rep.setDescripcion(rs.getString(5));
+                reports.add(rep);
+            }
+            rs.close();
+            st.close();
+            return reports;
+        }catch(SQLException e){
+            System.out.println("Exception caught in get reports: ");
             e.printStackTrace();
             return null;
         }
@@ -121,6 +145,22 @@ public class GestorBD {
         }
        
     }
+     public boolean deleteReport(int id){
+        try{
+            String sql = "DELETE FROM Reporte WHERE idReporte =" + id;
+            ps = conexion.prepareCall(sql);
+            ps.execute();
+            ps.close();
+            return true;
+        }catch(Exception e){
+            System.out.println("Error caught in: delete report. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    
     // Carrito, parte 1.
     public boolean insertUserCar(int idUser){
         try{

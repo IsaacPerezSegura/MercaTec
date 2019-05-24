@@ -18,7 +18,7 @@ INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estad
 (NULL, 'Yahir Saldivar', 'Admin', '1234', 'Administrador', '15240528@itleon.edu.mx', 1);
 
 INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL, 1);
-SELECT * FROM Carrito;
+SELECT * FROM Usuario;
 SELECT U.idUsuario, U.nombre, C.idCarrito FROM Usuario AS U INNER JOIN Carrito as C ON C.idUsuario = U.idUsuario;
 
 CREATE TABLE Tarjeta(
@@ -45,8 +45,13 @@ CREATE TABLE Reporte(
     idUsuario INT(5) NOT NULL,
     idProducto INT(5) NOT NULL,
     motivo VARCHAR(20) NOT NULL,
-    descripcion VARCHAR(80) 
+    descripcion TEXT(500) 
 );
+
+SELECT * from Reporte;
+
+INSERT INTO Reporte(idUsuario, idProducto, motivo, descripcion) VALUES
+(1,1,'Arduino descompuesto',' La razón por la cual no compré fue...');
 
 CREATE TABLE Comentarios(
 	idComentario INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
