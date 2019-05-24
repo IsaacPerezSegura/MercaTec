@@ -158,7 +158,29 @@ public class GestorBD {
             return false;
         }
     }
-    
+    public List<Reportes> getUnqiueReport(int id){
+        List<Reportes> reports = new ArrayList<>();
+        try{
+            st = conexion.createStatement();
+            rs = st.executeQuery("SELECT * FROM Reporte WHERE idReporte =" + id);
+            while(rs.next()){
+                Reportes rep = new Reportes();
+                rep.setIdReporte(rs.getInt(1));
+                rep.setIdUsuario(rs.getInt(2));
+                rep.setIdProducto(rs.getInt(3));
+                rep.setMotivo(rs.getString(4));
+                rep.setDescripcion(rs.getString(5));
+                reports.add(rep);
+            }
+            rs.close();
+            st.close();
+            return reports;
+        }catch(SQLException e){
+            System.out.println("Exception caught in get reports: ");
+            e.printStackTrace();
+            return null;
+        }
+    }
     
     
     // Carrito, parte 1.

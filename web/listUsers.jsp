@@ -58,7 +58,7 @@
                         if (usuario.size() == 0) {
                     %>
                     <tr>
-                        <td colspan="7" align="center"> Por el momento no hay reportes registrados.</td>
+                        <td colspan="7" align="center"> Por el momento no hay usuarios registrados.</td>
                     </tr>
                     <%
                     } else {

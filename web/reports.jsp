@@ -72,12 +72,14 @@
                         <td><%=r.getIdUsuario()%></td>
                         <td><%=r.getIdProducto()%></td>
                         <td><%=r.getMotivo()%></td>
-                        <td><a href="#"> Ver Reporte</a></td>
+                        <td><a href="showRep?idR=<%= r.getIdReporte() %>"> Ver Reporte</a></td>
                         <td><a href="deleteReport?id=<%= r.getIdReporte() %>"> Eliminar Reporte</a></td>
                     </tr>
                     <%} }%>
                 </table>
             </div>
+                <p> Número de reportes registrados: <b> <%= rep.size()%> </b></p>
+            <% rep.clear();%>
         </div>
         <jsp:include page="footer.jsp"/>
     </body>
