@@ -52,7 +52,7 @@
             <input type="submit" class="btn btn-success" value="Ingresar usuario">
         </form>
             <br>
-        <form action="ShowUsers"  method="POST">
+        <form action="<%= request.getContextPath() %>/listUsers.jsp"  method="POST">
             <input type="submit" class="btn btn-primary"value="Ver usuarios">
         </form>
         </div>

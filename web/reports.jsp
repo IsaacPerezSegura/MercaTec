@@ -20,7 +20,7 @@
               href="<%= request.getContextPath() %>/css/buttons.css" />
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
-        <title>JSP Page</title>
+        <title> Reportes</title>
     </head>
     <body>
          <jsp:include page="header.jsp" />
@@ -57,7 +57,14 @@
                         <td> Motivo</td>
                         <td colspan="2"> Acciones</td>
                     </tr>
+                    <% 
+                        if(rep.size() == 0){
+                    %>
+                    <tr>
+                        <td colspan="7" align="center"> Por el momento no hay reportes registrados.</td>
+                    </tr>
                     <%
+                         }else{   
                             for(Reportes r:rep){
                     %>
                     <tr>
@@ -68,8 +75,7 @@
                         <td><a href="#"> Ver Reporte</a></td>
                         <td><a href="deleteReport?id=<%= r.getIdReporte() %>"> Eliminar Reporte</a></td>
                     </tr>
-                    <% }%>
-                    
+                    <%} }%>
                 </table>
             </div>
         </div>
