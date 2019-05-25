@@ -33,16 +33,39 @@
         </header>
         <%@ page import= "Model.Usuario,java.util.Collection" %>
 
-        <%
-            Collection<Usuario> users = new ArrayList<>();
-            GestorBD gestor = new GestorBD();
-            users = gestor.getUsuarios();
-            Collection<Usuario> usuario = null;
-            usuario = users;
-        %> 
+
         <div class="container">
+            <%
+                Collection<Usuario> users = new ArrayList<>();
+                GestorBD gestor = new GestorBD();
+                Collection<Usuario> usuario = null;
+                
+            %> 
             <br>
             <h2> Los usuarios registrados son: </h2>
+            <table>
+                <div class="row">
+                    <form>
+                        <div class="col-md-4"> 
+                            <input type="text" class="form-control" name="txtBuscar" placeholder="Buscar..."/>
+                        </div>
+                        <div class="col-md-1" align="center"> 
+                            <input type="submit" class="form-control" value="buscar"/>
+                        </div>
+                    </form>
+                </div>
+            </table>
+            <br>
+            <%
+                String aux = request.getParameter("txtBuscar");
+                users = gestor.getUsuarios(aux);
+                if (aux != null) { //Aquí valida si es diferente de nulo.
+                   usuario = users;
+                } else {
+                   usuario = users;
+                }
+            %>
+            <p> Número de Usuarios registrados: <b> <%= usuario.size()%> </b></p>
             <div class="table-responsive">
                 <table cellpadding="5" class="table table-striped table-hover">
                     <tr>
@@ -62,7 +85,7 @@
                     </tr>
                     <%
                     } else {
-                        for (Usuario us: usuario) {
+                        for (Usuario us : usuario) {
                     %>
                     <tr>
                         <td><%=us.getIdUsuario()%> </td>
@@ -73,10 +96,10 @@
                         <td><%=us.getCorreo()%> </td>
                         <td> <a href="deleteUser?id=<%= us.getIdUsuario()%>"> Eliminar </a></td>
                     </tr>
-                    <% } }%>
+                    <% }
+                        }%>
                 </table>
             </div>
-            <p> Número de Usuarios registrados: <b> <%= usuario.size()%> </b></p>
             <% usuario.clear();%>
             <br>
 

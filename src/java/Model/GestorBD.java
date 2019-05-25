@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorBD {
+
     private Connection conexion;
     private ResultSet rs;
     private Statement st;
@@ -17,25 +18,25 @@ public class GestorBD {
     //Arrays para carrito
     private Carrito carrito;
     private ArrayList<Integer> claveProductos;
-    
+
     private PreparedStatement ps;
     private ResultSet result;
-    
+
     public String typeUser = "";
     private Usuario usuario;
-    
-    public GestorBD(){
+
+    public GestorBD() {
         conexion = ConexionBD.obtenerConexion();
     }
-    
+
     // Login
-    public int getUsuario(String us, String pass){
+    public int getUsuario(String us, String pass) {
         int id = 0;
         try {
-            String sql = "SELECT idUsuario, tipo FROM Usuario WHERE usuario = '"+us+"' AND contraseña = '"+pass+"' AND estado = 1";
+            String sql = "SELECT idUsuario, tipo FROM Usuario WHERE usuario = '" + us + "' AND contraseña = '" + pass + "' AND estado = 1";
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 id = rs.getInt("idUsuario");
                 typeUser = rs.getString("tipo");
             }
@@ -46,28 +47,34 @@ public class GestorBD {
         }
         return id;
     }
-    
-    public String getNameUser(int id){
+
+    public String getNameUser(int id) {
         String aux = "";
-        try{
+        try {
             st = conexion.createStatement();
-            rs = st.executeQuery("SELECT nombre FROM Usuario WHERE idUsuario ="+id);
-            while(rs.next()){
+            rs = st.executeQuery("SELECT nombre FROM Usuario WHERE idUsuario =" + id);
+            while (rs.next()) {
                 aux = rs.getString("nombre");
             }
             return aux;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return aux;
         }
     }
-      // Usuarios.
-    public List<Usuario> getUsuarios(){
+    // Usuarios.
+
+    public List<Usuario> getUsuarios(String smt) {
         List<Usuario> users = new ArrayList<>();
-        try{
+        try {
             st = conexion.createStatement();
-            rs = st.executeQuery("SELECT * FROM Usuario WHERE estado = 1");
-            while(rs.next()){
+            if (smt == null) {
+                rs = st.executeQuery("SELECT * FROM Usuario WHERE estado = 1 ");
+            } else {
+                rs = st.executeQuery("SELECT * FROM Usuario WHERE estado = 1 AND "
+                        + "nombre LIKE '%" + smt + "%' OR usuario LIKE '%" + smt + "%'");
+            }
+            while (rs.next()) {
                 Usuario us = new Usuario();
                 us.setIdUsuario(rs.getInt(1));
                 us.setNombre(rs.getString(2));
@@ -80,19 +87,22 @@ public class GestorBD {
             rs.close();
             st.close();
             return users;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Exception caught in get users: ");
             e.printStackTrace();
             return null;
         }
     }
-    
-     public List<Reportes> getReports(){
+    public List<Reportes> getReports(String smt) {
         List<Reportes> reports = new ArrayList<>();
-        try{
+        try {
             st = conexion.createStatement();
-            rs = st.executeQuery("SELECT * FROM Reporte");
-            while(rs.next()){
+            if (smt == null) {
+                rs = st.executeQuery("SELECT * FROM Reporte");
+            } else {
+                rs = st.executeQuery("SELECT * FROM Reporte WHERE motivo LIKE '%" + smt + "%'");
+            }
+            while (rs.next()) {
                 Reportes rep = new Reportes();
                 rep.setIdReporte(rs.getInt(1));
                 rep.setIdUsuario(rs.getInt(2));
@@ -104,16 +114,16 @@ public class GestorBD {
             rs.close();
             st.close();
             return reports;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Exception caught in get reports: ");
             e.printStackTrace();
             return null;
         }
     }
-    public boolean insertUser(Usuario usuario){
-        try{
-            String sql = "INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES \n" +
-                          "(NULL, ?,?,?,?,?,?);";
+    public boolean insertUser(Usuario usuario) {
+        try {
+            String sql = "INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES \n"
+                    + "(NULL, ?,?,?,?,?,?);";
             ps = conexion.prepareStatement(sql);
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getUsuario());
@@ -124,28 +134,30 @@ public class GestorBD {
             ps.execute();
             ps.close();
             return true;
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: Insertar Usuario BD. Check.");
             e.printStackTrace();
             return false;
         }
     }
-    public boolean deleteUser(int id){
-        try{
+
+    public boolean deleteUser(int id) {
+        try {
             String sql = "DELETE FROM Usuario WHERE idUsuario =" + id;
             ps = conexion.prepareCall(sql);
             ps.execute();
             ps.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: delete user. Check.");
             e.printStackTrace();
             return false;
         }
     }
-    public int getIDfromUser(){
+
+    public int getIDfromUser() {
         int id = 0;
-        try{
+        try {
             st = conexion.createStatement();
             rs = st.executeQuery("CALL getNextId;");
             rs.next();
@@ -153,32 +165,34 @@ public class GestorBD {
             rs.close();
             st.close();
             return id;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: get id from new user. Check.");
             e.printStackTrace();
             return -1;
         }
-       
+
     }
-     public boolean deleteReport(int id){
-        try{
+
+    public boolean deleteReport(int id) {
+        try {
             String sql = "DELETE FROM Reporte WHERE idReporte =" + id;
             ps = conexion.prepareCall(sql);
             ps.execute();
             ps.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: delete report. Check.");
             e.printStackTrace();
             return false;
         }
     }
-    public List<Reportes> getUniqueReport(int id){
+
+    public List<Reportes> getUniqueReport(int id) {
         List<Reportes> reports = new ArrayList<>();
-        try{
+        try {
             st = conexion.createStatement();
             rs = st.executeQuery("SELECT * FROM Reporte WHERE idReporte =" + id);
-            while(rs.next()){
+            while (rs.next()) {
                 Reportes rep = new Reportes();
                 rep.setIdReporte(rs.getInt(1));
                 rep.setIdUsuario(rs.getInt(2));
@@ -190,109 +204,108 @@ public class GestorBD {
             rs.close();
             st.close();
             return reports;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Exception caught in get reports: ");
             e.printStackTrace();
             return null;
         }
     }
-    
-    
+
     // Carrito, parte 1.
-    public boolean insertUserCar(int idUser){
-        try{
+    public boolean insertUserCar(int idUser) {
+        try {
             String sql = "INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL,?)";
             ps = conexion.prepareStatement(sql);
             ps.setInt(1, idUser);
             ps.execute();
             ps.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: insert user car.");
             e.printStackTrace();
             return false;
         }
     }
-    
-    public boolean deleteUserCar(int idCarrito){
-        try{
+
+    public boolean deleteUserCar(int idCarrito) {
+        try {
             String sql = "DELETE FROM Carrito WHERE idCarrito = ?";
             ps = conexion.prepareStatement(sql);
             ps.setInt(1, idCarrito);
             ps.execute();
             ps.close();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: delete user car DB. Check.");
             return false;
         }
     }
-    
-    public int getIDCar(int idUser){
+
+    public int getIDCar(int idUser) {
         int idCar = 0;
-        try{
+        try {
             String sql = "SELECT idCarrito FROM Carrito WHERE idUsuario = ?";
             ps = conexion.prepareStatement(sql);
             ps.setInt(1, idUser);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 idCar = rs.getInt("idCarrito");
             }
             rs.close();
             ps.close();
             return idCar;
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Error caught in: get id car from user in DB. Check");
             e.printStackTrace();
             return -1;
         }
     }
-    
-    
-   // Carrrito y Productos, parte 2.
-    public ArrayList<Producto> selectProducts(int id){
+
+    // Carrrito y Productos, parte 2.
+    public ArrayList<Producto> selectProducts(int id) {
         productos = new ArrayList();
         try {
-            if(id != -1){
+            if (id != -1) {
                 ps = conexion.prepareStatement("select * from productos where idUsuario=?");
                 ps.setInt(1, id);
-            }else{
+            } else {
                 ps = conexion.prepareStatement("select * from productos");
             }
-            
+
             result = ps.executeQuery();
             while (result.next()) {
                 producto = new Producto(
-                        result.getInt(1), 
-                        result.getString(3), 
-                        result.getBlob(4), 
-                        result.getString(5), 
-                        result.getDouble(6), 
-                        result.getInt(7), 
+                        result.getInt(1),
+                        result.getString(3),
+                        result.getBlob(4),
+                        result.getString(5),
+                        result.getDouble(6),
+                        result.getInt(7),
                         result.getInt(8)
                 );
                 producto.setIdUsuario(result.getInt(2));
                 productos.add(producto);
-                
+
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
         return productos;
     }
-    public Producto selectProduct(int id){
+
+    public Producto selectProduct(int id) {
         try {
             ps = conexion.prepareStatement("select * from productos where idProducto=?");
             ps.setInt(1, id);
             result = ps.executeQuery();
             if (result.next()) {
                 producto = new Producto(
-                        result.getInt(1), 
-                        result.getString(3), 
-                        result.getBlob(4), 
-                        result.getString(5), 
-                        result.getDouble(6), 
-                        result.getInt(7), 
+                        result.getInt(1),
+                        result.getString(3),
+                        result.getBlob(4),
+                        result.getString(5),
+                        result.getDouble(6),
+                        result.getInt(7),
                         result.getInt(8)
                 );
                 producto.setIdUsuario(result.getInt(2));
@@ -302,7 +315,8 @@ public class GestorBD {
         }
         return producto;
     }
-    public Carrito selectCarrito(int id){
+
+    public Carrito selectCarrito(int id) {
         productos = new ArrayList();
         carrito = new Carrito();
         try {
@@ -310,24 +324,24 @@ public class GestorBD {
             ps = conexion.prepareStatement("select productos_carrito.id,productos.idProducto"
                     + ", productos.nombreProd, "
                     + "productos.imagenProd, productos.descripcion, productos.precio,"
-                    + " productos.existencia, productos.unidades " +
-                "from Productos_Carrito inner join carrito " +
-                "on carrito.idCarrito = Productos_Carrito.idCarrito inner join usuario " +
-                "on carrito.idUsuario = usuario.idUsuario inner join productos " +
-                "on Productos_Carrito.idProducto = productos.idProducto " +
-                "where usuario.idUsuario = ?"
+                    + " productos.existencia, productos.unidades "
+                    + "from Productos_Carrito inner join carrito "
+                    + "on carrito.idCarrito = Productos_Carrito.idCarrito inner join usuario "
+                    + "on carrito.idUsuario = usuario.idUsuario inner join productos "
+                    + "on Productos_Carrito.idProducto = productos.idProducto "
+                    + "where usuario.idUsuario = ?"
             );
             ps.setInt(1, id);
             result = ps.executeQuery();
             while (result.next()) {
                 productos.add(new Producto(
                         result.getInt(1),
-                        result.getInt(2), 
-                        result.getString(3), 
-                        result.getBlob(4), 
-                        result.getString(5), 
-                        result.getDouble(6), 
-                        result.getInt(7), 
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getBlob(4),
+                        result.getString(5),
+                        result.getDouble(6),
+                        result.getInt(7),
                         result.getInt(8)
                 ));
             }
@@ -337,7 +351,8 @@ public class GestorBD {
         }
         return carrito;
     }
-    public void insertProductCarrito(int idUsuario, int idProducto){
+
+    public void insertProductCarrito(int idUsuario, int idProducto) {
         try {
             ps = conexion.prepareStatement("select idCarrito from carrito"
                     + " where idUsuario=?"
@@ -345,7 +360,7 @@ public class GestorBD {
             ps.setInt(1, idUsuario);
             result = ps.executeQuery();
             int idCarrito = 0;
-            if(result.next()){
+            if (result.next()) {
                 idCarrito = result.getInt(1);
             }
             ps = conexion.prepareStatement("insert into productos_carrito (idCarrito,idProducto)"
@@ -357,45 +372,48 @@ public class GestorBD {
             System.out.println(ex);
         }
     }
-    public void deleteProductCarrito(int idPC){
+
+    public void deleteProductCarrito(int idPC) {
         try {
             ps = conexion.prepareStatement("delete from productos_carrito"
                     + " where id=?");
-            ps.setInt(1,idPC);
-            if(ps.executeUpdate()!=0){
+            ps.setInt(1, idPC);
+            if (ps.executeUpdate() != 0) {
                 System.out.println("Eliminado del carrito");
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
     }
-    public ArrayList<Producto> searchProducto(String productoS){
+
+    public ArrayList<Producto> searchProducto(String productoS) {
         productos = new ArrayList();
         try {
             ps = conexion.prepareStatement("select * from productos");
             result = ps.executeQuery();
-            while(result.next()){
-                if(result.getString(3).toLowerCase().contains(productoS.toLowerCase())){
+            while (result.next()) {
+                if (result.getString(3).toLowerCase().contains(productoS.toLowerCase())) {
                     producto = new Producto(
-                        result.getInt(1), 
-                        result.getString(3), 
-                        result.getBlob(4), 
-                        result.getString(5), 
-                        result.getDouble(6), 
-                        result.getInt(7), 
-                        result.getInt(8)
+                            result.getInt(1),
+                            result.getString(3),
+                            result.getBlob(4),
+                            result.getString(5),
+                            result.getDouble(6),
+                            result.getInt(7),
+                            result.getInt(8)
                     );
                     producto.setIdUsuario(result.getInt(2));
                     productos.add(producto);
                 }
-                
+
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
         return productos;
     }
-    public void insertProduct(int id, Producto producto){
+
+    public void insertProduct(int id, Producto producto) {
         try {
             ps = conexion.prepareStatement("insert into productos ("
                     + "idUsuario,"
@@ -414,24 +432,26 @@ public class GestorBD {
             ps.setString(4, producto.getDecripción());
             ps.setDouble(5, producto.getPrecio());
             ps.setInt(6, producto.getUnidades());
-            if(ps.executeUpdate()!=0){
+            if (ps.executeUpdate() != 0) {
                 System.out.println("Producto insertado exitoso");
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
     }
-    public void deleteProduct(int idProducto){
+
+    public void deleteProduct(int idProducto) {
         try {
             ps = conexion.prepareStatement("delete from productos where idProducto=?");
             ps.setInt(1, idProducto);
-            if(ps.executeUpdate()!=0){
+            if (ps.executeUpdate() != 0) {
                 System.out.println("Eliminado");
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
     }
+
     public void modifyProduct(Producto producto) {
         try {
             ps = conexion.prepareStatement("update productos set "
@@ -442,7 +462,7 @@ public class GestorBD {
                     + "existencia=?,"
                     + "unidades=? where idProducto=?"
             );
-            ps.setString(1,producto.getNombreProd());
+            ps.setString(1, producto.getNombreProd());
             ps.setBytes(2, producto.getImage().getBytes());
             ps.setString(3, producto.getDecripción());
             ps.setDouble(4, producto.getPrecio());
@@ -456,13 +476,14 @@ public class GestorBD {
             System.out.println(ex);
         }
     }
-    public Usuario showUsuarioProduct(int idUsuario){
+
+    public Usuario showUsuarioProduct(int idUsuario) {
         usuario = new Usuario();
         try {
             ps = conexion.prepareStatement("select * from usuario where idUsuario=?");
-            ps.setInt(1,idUsuario);
+            ps.setInt(1, idUsuario);
             result = ps.executeQuery();
-            if(result.next()){
+            if (result.next()) {
                 usuario.setNombre(result.getString(2));
                 usuario.setCorreo(result.getString(6));
             }

@@ -21,6 +21,11 @@
               href="<%= request.getContextPath()%>/css/myAccount.css" />
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
+         <script>
+            function atras() {
+                history.back();
+            };
+        </script>
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -82,8 +87,9 @@
                 <form action="<%= request.getContextPath()%>/showPublication.jsp"  method="POST">
                     <input type="submit" class="btn btn-danger"value="Eliminar producto">
                 </form>
-
+                    <br>
                 <% }%>
+                <input type="submit" class="btn btn-primary" value="Regresar" onclick="atras();"/>
             </div>
             <jsp:include page="footer.jsp" />
     </body>
