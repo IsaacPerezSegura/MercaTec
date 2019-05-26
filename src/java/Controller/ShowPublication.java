@@ -33,7 +33,17 @@ public class ShowPublication extends HttpServlet {
         int idUsuario = 0;
         GestorBD query = new GestorBD();
         Producto producto;
-        if(request.getParameter("idProducto")!=null){
+        if(request.getParameter("comentario")!=null){
+            String comentario = request.getParameter("comentario");
+            idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+            idProducto = Integer.parseInt(request.getParameter("idProducto"));
+            System.out.println("Si ahuevo respondo :3");
+            query.comentar(idProducto, idUsuario, comentario);
+            producto = query.selectProduct(idProducto);
+                request.setAttribute("producto", producto);
+                request.setAttribute("idProductRequest", producto.getIdProducto());
+                request.getRequestDispatcher("showPublication.jsp").forward(request, response);
+        }else if(request.getParameter("idProducto")!=null){
             idProducto = Integer.parseInt(request.getParameter("idProducto"));
             producto = query.selectProduct(idProducto);
             request.setAttribute("producto", producto);

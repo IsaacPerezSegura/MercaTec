@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GestorBD {
 
@@ -20,6 +22,7 @@ public class GestorBD {
     private ArrayList<Integer> claveProductos;
 
     private PreparedStatement ps;
+    private PreparedStatement psAux;
     private ResultSet result;
 
     public String typeUser = "";
@@ -491,5 +494,60 @@ public class GestorBD {
             System.out.println(ex);
         }
         return usuario;
+    }
+    public ArrayList<Comentario> getComentarios(int idProducto){
+        ArrayList<Comentario> comentarios = new ArrayList();
+        try{
+            ps = conexion.prepareStatement("select comentario,idUsuario from comentarios where idProducto=?");
+            ps.setInt(1, idProducto);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                comentarios.add(
+                        new Comentario(
+                              this.showUsuarioProduct(rs.getInt(2)).getNombre(),
+                              rs.getString(1)
+                        )
+                );
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return comentarios;
+    }
+    
+    public void comentar(int idProducto, int idUsuario, String comentario){
+        try{
+            ps = conexion.prepareStatement("insert into comentarios (idUsuario,idProducto,comentario) "
+                    + "values(?,?,?)");
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idProducto);
+            ps.setString(3, comentario);
+            if(ps.executeUpdate()!=0){
+                System.out.println("Comentario ingresado");
+            }else{
+                System.out.println("nel no pude");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    
+    public boolean wasBoughtByCustomer(int idUsuario, int idProducto){
+        try {
+            ps = conexion.prepareStatement("select  productos_carrito.idProducto "+
+                    "from carrito inner join productos_carrito " +
+                    "on carrito.idCarrito = productos_carrito.idCarrito " +
+                    "where carrito.idUsuario=? and  productos_carrito.idProducto=?");
+            ps.setInt(1, idUsuario);
+            ps.setInt(2, idProducto);
+            if(ps.executeQuery().next()){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        }
     }
 }

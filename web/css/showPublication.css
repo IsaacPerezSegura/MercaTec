@@ -49,3 +49,45 @@
 #ficha div div form:nth-child(2) input{
     background: #D10024;
 }
+
+#comentarios{
+    width:80%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+#comentarios div{
+    text-align: left;
+    margin-top: 8%;
+}
+#comentarios div:nth-of-type(1){
+    text-align: left;
+    margin-top: 0%;
+}
+#comentarios div div{
+    margin:0;
+    background: #EBDB8E;
+    padding: 2%;
+    border-radius: 10px;
+}
+#comentarios form{
+    margin-top: 5%;
+    width:80%;
+    margin-left: 10%;
+}
+#comentarios form input{
+    border:none;
+    background: #D10024;
+    padding:2%;
+    color:white;
+    font-weight: bold;
+    font-family: arial;
+    transition: all 0.3s;
+}
+#comentarios form input:hover{
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+#makeCommentContent{
+    width:100%;
+    resize:none;
+}

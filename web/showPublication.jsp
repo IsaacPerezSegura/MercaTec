@@ -4,6 +4,8 @@
     Author     : Isaac Perez
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Model.Comentario"%>
 <%@page import="Model.GestorBD"%>
 <%@page import="Model.Usuario"%>
 <%@page import="Model.Producto"%>
@@ -22,6 +24,8 @@
             Producto producto;
             Usuario usuario;
             GestorBD query = new GestorBD();
+            ArrayList<Comentario> comentarios;
+            boolean wasBoughtByCustomer = false;
         %>
         <% producto = (Producto)request.getAttribute("producto"); 
             usuario = query.showUsuarioProduct(producto.getIdUsuario());
@@ -91,6 +95,37 @@
                 </div>
             </div>
         </div>
+                
+                <section id="comentarios">
+                    <h4>Comentarios:</h4>
+                    <% comentarios= query.getComentarios(producto.getIdProducto()); %>
+                    <!-- Comentario apertura -->
+                    <% for(Comentario comentario: comentarios){ %>
+                    <div>
+                        <header>
+                            <h5><%= comentario.getNombreUsuario() %></h5>
+                        </header>
+                        <div>
+                           <%= comentario.getComentario() %>
+                        </div>
+                    </div>
+                    <% } comentarios.clear(); %>
+                    <!-- Comentario cierre -->
+                    <% 
+                    wasBoughtByCustomer = query.wasBoughtByCustomer((int)session.getAttribute("id")
+                            ,producto.getIdProducto());
+                    /*if(wasBoughtByCustomer){ */%>
+                        <form action="ShowPublication" method="post">
+                            <h4>Publicar comentario:</h4>
+                            <textarea id="makeCommentContent" name="comentario" 
+                                      rows="10" cols="40" required="true"></textarea>
+                            <br/>
+                            <input type="hidden" name="idProducto" value="<%= producto.getIdProducto() %>"/>
+                            <input type="hidden" name="idUsuario" value="<%= (int)session.getAttribute("id") %>"/>
+                            <input type="submit" value="Comentar" />
+                        </form>
+                    <%// } %>
+                </section>
         
         <jsp:include page="footer.jsp" />
         <jsp:include page="scripts.html" />
