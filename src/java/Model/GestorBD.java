@@ -96,6 +96,8 @@ public class GestorBD {
             return null;
         }
     }
+    
+    /* Reportes */
     public List<Reportes> getReports(String smt) {
         List<Reportes> reports = new ArrayList<>();
         try {
@@ -122,7 +124,7 @@ public class GestorBD {
             e.printStackTrace();
             return null;
         }
-    }
+    }  
     public boolean insertUser(Usuario usuario) {
         try {
             String sql = "INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES \n"
@@ -214,6 +216,18 @@ public class GestorBD {
         }
     }
 
+      public boolean deleteSameReports(int id){
+        try{
+           String sql = "DELETE FROM Reporte WHERE idProducto =" + id;
+            ps = conexion.prepareCall(sql);
+            ps.execute();
+            ps.close();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     // Carrito, parte 1.
     public boolean insertUserCar(int idUser) {
         try {

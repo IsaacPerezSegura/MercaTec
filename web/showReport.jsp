@@ -84,10 +84,8 @@
                     </div>
                 </div>
                 <br>
-                <form action="<%= request.getContextPath()%>/showPublication.jsp"  method="POST">
-                    <input type="submit" class="btn btn-danger"value="Eliminar producto">
-                </form>
-                    <br>
+              <td><a href="ShowPublication?idProducto=<%= rep.getIdProducto()%>" class="btn btn-danger"> Ver Producto</a></td>
+              <br><br>
                 <% }%>
                 <input type="submit" class="btn btn-primary" value="Regresar" onclick="atras();"/>
             </div>
