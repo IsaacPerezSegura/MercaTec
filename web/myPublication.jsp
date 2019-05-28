@@ -9,6 +9,7 @@
         <title>Publicaciones</title>
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath() %>/css/myAccount.css" />
+         <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/logo.png" />
     </head>
     <body>
         <jsp:include page="header.jsp" />

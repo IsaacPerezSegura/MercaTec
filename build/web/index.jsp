@@ -7,6 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <head>
+         <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/logo.png" />
+    </head>
     <body>
         <% if(session.getAttribute("id")== null){
             session.setAttribute("id", -1);

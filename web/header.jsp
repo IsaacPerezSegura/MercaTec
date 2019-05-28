@@ -29,6 +29,7 @@
               href="<%= request.getContextPath()%>/css/style.css"/>
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/car.css"/>
+        <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/logo.png" />
     </head>
 <header>
     <%!

@@ -8,6 +8,7 @@
               href="<%= request.getContextPath() %>/css/myAccount.css" />
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
+         <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/login.png" />
     </head>
     <body>
         <jsp:include page="header.jsp"/>

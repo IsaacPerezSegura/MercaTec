@@ -16,7 +16,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link type="text/css" rel="stylesheet" 
-              href="<%= request.getContextPath()%>/css/showPublication.css"
+              href="<%= request.getContextPath()%>/css/showPublication.css">
+        
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -73,7 +74,7 @@
                 </form>
                 <footer align="left">
                     <p>Nombre del vendedor: <%= usuario.getNombre()%></p>
-                    <p>Corre electornico del vendedor: <%= usuario.getCorreo()%></p>
+                    <p>Correo electrónico del vendedor: <%= usuario.getCorreo()%></p>
                 </footer>
                 <div>
                     <% if ((int) session.getAttribute("id") == producto.getIdUsuario()) {%>
@@ -138,7 +139,7 @@
             </form>
             <%// } %>
         </section>
-
+        
         <jsp:include page="footer.jsp" />
         <jsp:include page="scripts.html" />
     </body>
