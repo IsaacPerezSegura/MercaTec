@@ -4,6 +4,7 @@
     Author     : Isaac Perez
 --%>
 
+<%@page import="Model.Carrito"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Comentario"%>
 <%@page import="Model.GestorBD"%>
@@ -24,6 +25,7 @@
         <%!
             Producto producto;
             Usuario usuario;
+            Carrito carritoValidate;
             GestorBD query = new GestorBD();
             ArrayList<Comentario> comentarios;
             boolean wasBoughtByCustomer = false;
@@ -32,8 +34,20 @@
             usuario = query.showUsuarioProduct(producto.getIdUsuario());
             int id = (int) session.getAttribute("id");
         %>
+        <%!
+            int min = 0;
+            int valueU = 0;
+        %>
+        <%
+            if (producto.getUnidades() > 0) {
+                valueU = 1;
+                min = 1;
+            } else {
+                valueU = 0;
+                min = 0;
+            }
+        %>
         <div id="ficha">
-
             <img src="<%= producto.getImage()%>" />
             <div align="center">
                 <%
@@ -53,27 +67,7 @@
                 <br />
                 <h4>Descripción:</h4>
                 <h5><%= producto.getDecripción()%></h5>
-                <form name="unidadesForm">
-                    <%!
-                        int min = 0;
-                        int valueU = 0;
-                    %>
-                    <%
-                        if (producto.getUnidades() > 0) {
-                            valueU = 1;
-                            min = 1;
-                        } else {
-                            valueU = 0;
-                            min = 0;
-                        }
-                    %>
-                    <br />
-                    Cantidad: 
-                    <input type="number" value="<%= valueU%>" 
-                           min="<%= min%>"
-                           max="<%= producto.getUnidades()%>">
-                    Unidades disponibles: <%= producto.getUnidades()%>
-                </form>
+
                 <footer align="left">
                     <p>Nombre del vendedor: <%= usuario.getNombre()%></p>
                     <p>Correo electrónico del vendedor: <%= usuario.getCorreo()%></p>
@@ -97,18 +91,60 @@
                                value="Modificar"
                                alt="Modificar"/>
                     </form>
-                    <% } else {%>
+                    <% } else {
+                        if((int)session.getAttribute("id")!=-1){
+                            carritoValidate = query.selectCarrito(
+                                    Integer.parseInt(
+                                            session.getAttribute("id").toString()
+                                    ));
+                            int contadorUnidades = 0;
+                            for(int i=0;i<carritoValidate.getProductos().size();i++){
+                                if(carritoValidate.getProductos().get(i).getIdProducto() == producto.getIdProducto()){
+                                    contadorUnidades+=1;
+                                }
+                            }
+                     if(contadorUnidades<producto.getUnidades()){
+                    %>
                     <form action="ShowPublication" method="post">
+                    Cantidad: 
+                    <input type="number" value="<%= valueU%>" 
+                           min="<%= min%>"
+                           max="<%= producto.getUnidades()-contadorUnidades %>"
+                           name="numberOfItem">
+                    Unidades disponibles: <%= producto.getUnidades()%>
+                    <br /><br /><br />
                         <input type="hidden" name="addCar" value="<%= producto.getIdProducto()%>"/>
                         <input type="submit" value="Agregar al carrito">
                     </form>
+                    <% 
+                      }
+                    %>
                     <form action="#" method="post">
                         <input type="submit" value="Comprar">
-                    </form>
-                    <% }%>
+                    </form>       
+                     <%
+                        }else{
+                     %>
+                        <form action="ShowPublication" method="post">
+                        Cantidad: 
+                        <input type="number" value="<%= valueU%>" 
+                               min="<%= min%>"
+                               max="<%= producto.getUnidades()%>"
+                               name="numberOfItem">
+                        Unidades disponibles: <%= producto.getUnidades()%>
+                        <br /><br /><br />
+                        <input type="hidden" name="addCar" value="<%= producto.getIdProducto()%>"/>
+                        <input type="submit" value="Agregar al carrito">
+                        </form>
+                        <form action="#" method="post">
+                            <input type="submit" value="Comprar">
+                        </form>
+                    <%
+                        }
+                        }
+                    %>
                 </div>
             </div>
-
         </div> 
         <br><br>
         <div align="center" id="reportes">

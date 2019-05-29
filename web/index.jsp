@@ -13,6 +13,7 @@
     <body>
         <% if(session.getAttribute("id")== null){
             session.setAttribute("id", -1);
+            session.setAttribute("type", "normal");
         } %>
         <jsp:include page="header.jsp" />
         

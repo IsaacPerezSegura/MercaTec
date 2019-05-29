@@ -15,7 +15,6 @@
 
 #ficha div div{
     width:100%;
-    display:flex;
     margin-top: 5%;
 }
 #ficha div footer{
@@ -25,7 +24,7 @@
     width:50%;
 }
 
-#ficha div div form input{
+#ficha div div form input[type="submit"]{
     color: white;
     font-weight: bold;
     font-size: 15px;
@@ -34,7 +33,7 @@
     padding:7%;
     transition: all 0.3s;
 }
-#ficha div div form input:hover{
+#ficha div div form input[type="submit"]:hover{
     opacity:0.8;
 }
 #ficha div div form:nth-child(1){
@@ -43,10 +42,10 @@
 #ficha div div form:nth-child(2){
     text-align: left;
 }
-#ficha div div form:nth-child(1) input{
+#ficha div div form:nth-child(1) input[type="submit"]{
     background: #1B2925;
 }
-#ficha div div form:nth-child(2) input{
+#ficha div div form:nth-child(2) input[type="submit"]{
     background: #D10024;
 }
 

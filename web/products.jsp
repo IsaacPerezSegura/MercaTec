@@ -1,3 +1,4 @@
+<%@page import="Model.Carrito"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Producto"%>
@@ -8,6 +9,7 @@
             GestorBD queries = new GestorBD();
             ArrayList<Producto> productos;
             int newsProducts = 0;
+            Carrito carritoValidate;
 %>
 <div class="section">
     <!-- container -->
@@ -74,7 +76,20 @@
                                                        value="Ver"
                                                        class="add-to-cart-btn"/>
                                             </form>
-                                        <% }else{ %>
+                                        <% }else{
+                                            if((int)session.getAttribute("id")!=-1){
+                                                carritoValidate = queries.selectCarrito(
+                                                        Integer.parseInt(
+                                                                session.getAttribute("id").toString()
+                                                        ));
+                                                int contadorUnidades = 0;
+                                                for(int u=0;u<carritoValidate.getProductos().size();u++){
+                                                    if(carritoValidate.getProductos().get(u).getIdProducto() == productos.get(i).getIdProducto()){
+                                                        contadorUnidades+=1;
+                                                    }
+                                                }
+                                                if(contadorUnidades<productos.get(i).getUnidades()){
+                                        %>
                                         <form action="carrito" method="post">
                                             <input type="hidden" name="requestURL" 
                                                 value="<%= request.getRequestURI() %>" />
@@ -83,7 +98,18 @@
                                             <input type="submit"  value="Añadir al carrito" 
                                                    class="add-to-cart-btn" />
                                         </form>
-                                        <% } %>
+                                        <% }}else{
+                                        %>    
+                                         <form action="carrito" method="post">
+                                            <input type="hidden" name="requestURL" 
+                                                value="<%= request.getRequestURI() %>" />
+                                            <input type="hidden" value="<%= productos.get(i).getIdProducto() %>" 
+                                                   name="id"/>
+                                            <input type="submit"  value="Añadir al carrito" 
+                                                   class="add-to-cart-btn" />
+                                        </form>       
+                                        <%
+                                        } }%>
                                     </div>
                                 </div>
                                 <%
@@ -148,16 +174,40 @@
                                   value="Ver"
                                   class="add-to-cart-btn"/>
                        </form>
-                       <% } else {%>
-                       <form action="carrito" method="post">
-                           <input type="hidden" name="requestURL" 
-                                  value="<%= request.getRequestURI()%>" />
-                           <input type="hidden" value="<%= producto.getIdProducto()%>" 
-                                  name="id"/>
-                           <input type="submit"  value="Añadir al carrito" 
-                                  class="add-to-cart-btn" />
-                       </form>
-                       <% } %>
+                       <% } else{
+                                            if((int)session.getAttribute("id")!=-1){
+                                                carritoValidate = queries.selectCarrito(
+                                                        Integer.parseInt(
+                                                                session.getAttribute("id").toString()
+                                                        ));
+                                                int contadorUnidades = 0;
+                                                for(int u=0;u<carritoValidate.getProductos().size();u++){
+                                                    if(carritoValidate.getProductos().get(u).getIdProducto() == producto.getIdProducto()){
+                                                        contadorUnidades+=1;
+                                                    }
+                                                }
+                                                if(contadorUnidades<producto.getUnidades()){
+                                        %>
+                                        <form action="carrito" method="post">
+                                            <input type="hidden" name="requestURL" 
+                                                value="<%= request.getRequestURI() %>" />
+                                            <input type="hidden" value="<%= producto.getIdProducto() %>" 
+                                                   name="id"/>
+                                            <input type="submit"  value="Añadir al carrito" 
+                                                   class="add-to-cart-btn" />
+                                        </form>
+                                        <% }}else{
+                                        %>    
+                                         <form action="carrito" method="post">
+                                            <input type="hidden" name="requestURL" 
+                                                value="<%= request.getRequestURI() %>" />
+                                            <input type="hidden" value="<%= producto.getIdProducto() %>" 
+                                                   name="id"/>
+                                            <input type="submit"  value="Añadir al carrito" 
+                                                   class="add-to-cart-btn" />
+                                        </form>       
+                                        <%
+                                        } }%>
                    </div>
             </div>
         </div>

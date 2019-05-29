@@ -51,12 +51,15 @@ public class ShowPublication extends HttpServlet {
             request.getRequestDispatcher("showPublication.jsp").forward(request, response);
         }else if(request.getParameter("addCar")!=null){
             if((int)request.getSession().getAttribute("id")!=-1){
+                int numberItems = Integer.parseInt(request.getParameter("numberOfItem"));
                 idUsuario = (int) request.getSession().getAttribute("id");    
-
+                
                 idProducto = Integer.parseInt(request.getParameter("addCar"));
-                query.insertProductCarrito(
+                for(int i=0;i<numberItems;i++){
+                    query.insertProductCarrito(
                             idUsuario
                             ,idProducto);
+                }
                 producto = query.selectProduct(idProducto);
                 request.setAttribute("producto", producto);
                 request.setAttribute("idProductRequest", producto.getIdProducto());
