@@ -97,6 +97,21 @@ public class GestorBD {
         }
     }
     
+    public String getNickname(String name){
+        String aux = "";
+        try{
+            st = conexion.createStatement();
+             rs = st.executeQuery("SELECT usuario FROM Usuario WHERE usuario = '"+ name + "'");
+             if(rs.next()){
+                 aux = rs.getString("usuario");
+             }
+             return aux;
+        }catch(Exception e){
+            e.printStackTrace();
+            return aux;
+        }
+    }
+    
     /* Reportes */
     public List<Reportes> getReports(String smt) {
         List<Reportes> reports = new ArrayList<>();
@@ -159,6 +174,22 @@ public class GestorBD {
             return false;
         }
     }
+    
+    public boolean deleteTheirProducts(int id) {
+        try {
+            String sql = "DELETE FROM Productos WHERE idUsuario =" + id;
+            ps = conexion.prepareCall(sql);
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error caught in: delete their products. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
 
     public int getIDfromUser() {
         int id = 0;
