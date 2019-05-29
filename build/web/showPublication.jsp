@@ -128,11 +128,15 @@
                         <h4 class="modal-title"> Reportar Producto</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="#" id="formReport" method="POST">
-                            <span>ID Producto:</span><input type="text" class="form-control" value="<%= producto.getIdProducto()%>" readonly/>
-                            <span>ID Usuario:</span><input type="text" class="form-control" value="<%= id%>" readonly/>
-                            <span>Motivo:</span> <input type="text" class="form-control" required />
-                            <span>Descripción:</span> <textarea id="textarea" class="form-control" ></textarea>
+                        <form action="sendReport" id="formReport" method="POST">
+                            <span>ID Producto:</span><input type="text" class="form-control" name="idProd"
+                                                            value="<%= producto.getIdProducto()%>" readonly/>
+                            <span>ID Usuario:</span><input type="text" class="form-control" name="idUs"
+                                                           value="<%= id%>" readonly/>
+                            <span>Motivo:</span> <input type="text" class="form-control" name="motivo"
+                                                        required />
+                            <span>Descripción:</span> <textarea id="textarea" name="descripcion"
+                                                                class="form-control" ></textarea>
                         </form>
                     </div>
                     <div class="modal-footer">

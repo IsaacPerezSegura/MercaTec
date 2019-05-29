@@ -6,7 +6,7 @@
 package Controller;
 
 import Model.GestorBD;
-import Model.Usuario;
+import Model.Reportes;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,29 +19,38 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Aideé Alvarez
  */
-@WebServlet(name = "newUser", urlPatterns = {"/newUser"})
-public class newUser extends HttpServlet {
+@WebServlet(name = "sendReport", urlPatterns = {"/sendReport"})
+public class sendReport extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
-        int aux = Integer.parseInt(id);
-        String nombre     = request.getParameter("nombre");
-        String usuario    = request.getParameter("usuario");
-        String contraseña = request.getParameter("pass");
-        System.out.println(contraseña);
-        String tipo       = request.getParameter("tipo");
-        String correo     = request.getParameter("correo");
-        GestorBD query    = new GestorBD();
+        GestorBD query = new GestorBD();
+        
+        String idProducto = request.getParameter("idProd");
+        int aux = Integer.parseInt(idProducto);
+        String idUsuario = request.getParameter("idUs");
+        int aux2 = Integer.parseInt(idUsuario);
+        String motivo = request.getParameter("motivo");
+        String descripcion = request.getParameter("descripcion");
+        
         try  {
-            
-            if(query.insertUser(new Usuario(nombre,usuario,contraseña,tipo,correo))){
-                 query.insertUserCar(aux);
-                 response.sendRedirect("users.jsp");
+            if(query.insertReport(new Reportes(aux2,aux, motivo, descripcion))){
+                 response.sendRedirect("index.jsp");
             }
-        } catch(Exception e){
-            System.out.println("Problem with new user servlet. Check");
+        } catch(IOException e){
+            System.out.println("Problem with send report servlet. Check");
             e.printStackTrace();
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

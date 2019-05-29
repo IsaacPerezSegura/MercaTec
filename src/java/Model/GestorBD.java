@@ -207,6 +207,27 @@ public class GestorBD {
 
     }
 
+    public boolean insertReport(Reportes rep){
+        try {
+            String sql = "INSERT INTO Reporte(idReporte, idUsuario, idProducto, motivo, descripcion) VALUES \n"
+                    + "(NULL,?,?,?,?);";
+            ps = conexion.prepareStatement(sql);
+            ps.setInt(1, rep.getIdUsuario());
+            ps.setInt(2, rep.getIdProducto());
+            ps.setString(3, rep.getMotivo());
+            ps.setString(4, rep.getDescripcion());
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error caught in: Insertar Reportes. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    
     public boolean deleteReport(int id) {
         try {
             String sql = "DELETE FROM Reporte WHERE idReporte =" + id;

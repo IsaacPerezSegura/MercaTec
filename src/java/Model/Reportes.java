@@ -11,6 +11,13 @@ public class Reportes {
         
     }
 
+    public Reportes(int idUsuario, int idProducto, String motivo, String descripcion) {
+        this.idUsuario = idUsuario;
+        this.idProducto = idProducto;
+        this.motivo = motivo;
+        this.descripcion = descripcion;
+    }
+
     public int getIdReporte() {
         return idReporte;
     }
