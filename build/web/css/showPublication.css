@@ -91,3 +91,23 @@
     width:100%;
     resize:none;
 }
+
+#reportes section input {
+    border:none;
+    background: #FCC83B  ;
+    padding:1%;
+    color:white;
+    font-weight: bold;
+    font-family: arial;
+    transition: all 0.3s;
+}
+
+#reportes section input:hover{
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+#textarea {
+    resize: none;
+    max-height: 40%;
+}

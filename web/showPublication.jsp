@@ -17,7 +17,7 @@
         <title>JSP Page</title>
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/showPublication.css">
-        
+
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -30,6 +30,7 @@
         %>
         <% producto = (Producto) request.getAttribute("producto");
             usuario = query.showUsuarioProduct(producto.getIdUsuario());
+            int id = (int) session.getAttribute("id");
         %>
         <div id="ficha">
 
@@ -38,10 +39,11 @@
                 <%
                     String admin = session.getAttribute("type").toString();
                     if (admin.equals("Administrador")) {
+
                 %>
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    <td><a href="deletePR?idProd=<%= producto.getIdProducto()%>" class="btn btn-default"> Eliminar</a></td>
-               
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <td><a href="deletePR?idProd=<%= producto.getIdProducto()%>" class="btn btn-default"> Eliminar</a></td>
+
                 <% }%>
                 <br>
                 <h2><%= producto.getNombreProd()%></h2>
@@ -103,11 +105,43 @@
                     <form action="#" method="post">
                         <input type="submit" value="Comprar">
                     </form>
-                    <% } %>
+                    <% }%>
                 </div>
             </div>
+
+        </div> 
+        <br><br>
+        <div align="center" id="reportes">
+            <section>
+                <h3> ¿Deseas reportar el producto? </h3>
+                <div>
+                    <input type="button"  value="Reportar" data-toggle="modal" data-target="#myModal" />
+                </div>
+            </section>
         </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"> Reportar Producto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" id="formReport" method="POST">
+                            <span>ID Producto:</span><input type="text" class="form-control" value="<%= producto.getIdProducto()%>" readonly/>
+                            <span>ID Usuario:</span><input type="text" class="form-control" value="<%= id%>" readonly/>
+                            <span>Motivo:</span> <input type="text" class="form-control" required />
+                            <span>Descripción:</span> <textarea id="textarea" class="form-control" ></textarea>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" form="formReport" class="btn btn-primary"> Enviar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <section id="comentarios">
             <h4>Comentarios:</h4>
             <% comentarios = query.getComentarios(producto.getIdProducto()); %>
@@ -122,12 +156,12 @@
                 </div>
             </div>
             <% }
-                        comentarios.clear(); %>
+                comentarios.clear(); %>
             <!-- Comentario cierre -->
             <%
                 wasBoughtByCustomer = query.wasBoughtByCustomer((int) session.getAttribute("id"),
-                         producto.getIdProducto());
-                        /*if(wasBoughtByCustomer){ */%>
+                        producto.getIdProducto());
+                /*if(wasBoughtByCustomer){ */%>
             <form action="ShowPublication" method="post">
                 <h4>Publicar comentario:</h4>
                 <textarea id="makeCommentContent" name="comentario" 
@@ -138,8 +172,8 @@
                 <input type="submit" value="Comentar" />
             </form>
             <%// } %>
+
         </section>
-        
         <jsp:include page="footer.jsp" />
         <jsp:include page="scripts.html" />
     </body>
