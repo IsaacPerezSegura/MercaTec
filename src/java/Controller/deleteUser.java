@@ -39,10 +39,11 @@ public class deleteUser extends HttpServlet {
             if(query.deleteUserCar(aux)){
                 query.deleteUser(idUser);
                 query.deleteTheirProducts(idUser);
+                query.deleteTheirComments(idUser);
                 request.getRequestDispatcher("/users.jsp").forward(request, response);
             }
         } catch (Exception e) {
-
+                e.printStackTrace();
         }
     }
 

@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <!-- limpiar contenedor -->
 <div style="clear:both"></div>
@@ -40,6 +41,14 @@
                             <li><a href="#">Mi cuenta</a></li>
                             <li><a href="#">Carrito</a></li>
                         </ul>
+                    </div>
+                </div>
+               
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-title">Mapa</h3>
+                        	<div id="map-canvas" style="height:250px; width:300px">
+ 	</div>
                     </div>
                 </div>
             </div>

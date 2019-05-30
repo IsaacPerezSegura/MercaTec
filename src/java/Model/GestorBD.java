@@ -186,7 +186,19 @@ public class GestorBD {
             return false;
         }
     }
-    
+    public boolean deleteTheirComments(int id) {
+        try {
+            String sql = "DELETE FROM Comentarios WHERE idUsuario =" + id;
+            ps = conexion.prepareCall(sql);
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error caught in: delete their comments. Check.");
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 
     public int getIDfromUser() {
