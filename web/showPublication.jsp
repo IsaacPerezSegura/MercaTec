@@ -176,8 +176,14 @@
                         </form>
                     </div>
                     <div class="modal-footer">
+                        <% 
+                                if(id == -1) {
+                        %>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <% }else{ %>
                         <button type="submit" form="formReport" class="btn btn-primary"> Enviar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <% } %>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
