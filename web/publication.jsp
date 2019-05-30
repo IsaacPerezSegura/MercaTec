@@ -11,6 +11,8 @@
         <title>Nueva publicación</title>
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath() %>/css/myAccount.css" />
+        <link type="text/css" rel="stylesheet" 
+              href="<%= request.getContextPath() %>/css/publicar.css" />
          <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/logo.png" />
     </head>
     <body>
@@ -52,17 +54,18 @@
             </h5>
             <h5 style="display:flex;">
                 Selecciona una imagen:
+                <div id="contenedorInputFile">
                 <input type="file" id="image" onChange="loadImage()" 
-                       style="margin-left: 5%" required="true" name="imagen">
-                <div id="imageContainer">
-                    <output id="list"></output>
+                     required="true" name="imagen">
+                    <div id="imageContainer">
+                        <output id="list"></output>
+                    </div>
                 </div>
             </h5>
-            <input type="submit" value="Publicar" />
+            <input id="publicar" type="submit" value="Publicar" />
+            <input id="cancelar" type="button" value="Cancelar" onClick="location.href='<%= request.getContextPath() %>/index.jsp'"/>
         </form>
-        
         <jsp:include page="footer.jsp" />
-        
         <script>
             function loadImage() {
                 var archivo = document.getElementById("image");
