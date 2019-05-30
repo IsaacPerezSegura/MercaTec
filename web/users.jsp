@@ -47,7 +47,7 @@
             <input type="radio" name="tipo" value="Alumno" required /> Alumno
             <input type="radio" name="tipo" value="Administrador" required /> Administrador
             <h5> Correo: </h5>
-            <input type="text" name="correo"  class="form-control" required /> <br>
+            <input type="email" name="correo"  class="form-control" required /> <br>
             <br>
             <input type="submit" class="btn btn-success" value="Ingresar usuario">
         </form>
@@ -58,5 +58,9 @@
         </div>
         <jsp:include page="footer.jsp"/>
     </body>
-    
+    <%
+        if (request.getAttribute("nameError") != null) {
+            out.print("<script>alert(\"" + request.getAttribute("nameError").toString() + "\")</script>");
+        }
+    %>
 </html>

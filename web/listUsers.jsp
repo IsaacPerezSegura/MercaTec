@@ -1,6 +1,6 @@
 <%@page import="Model.GestorBD"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,12 +10,6 @@
         <link type="text/css" rel="stylesheet" 
               href="<%= request.getContextPath()%>/css/bootstrap.min.css"/>
         <title> Mostrar Usuarios</title>
-        <script>
-            function atras() {
-                history.back();
-            }
-            ;
-        </script>
     </head>
     <body>
         <jsp:include page="header.jsp" />
@@ -103,7 +97,7 @@
             <% usuario.clear();%>
             <br>
 
-            <input type="submit" class=" btn-default" value="Regresar" onclick="atras();"/>
+            <a href="users.jsp" class="btn btn-default"> Regresar</a>
         </div>
         <br> <br>
         <jsp:include page="footer.jsp"/>

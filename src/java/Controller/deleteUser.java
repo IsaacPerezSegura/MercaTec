@@ -40,7 +40,7 @@ public class deleteUser extends HttpServlet {
                 query.deleteUser(idUser);
                 query.deleteTheirProducts(idUser);
                 query.deleteTheirComments(idUser);
-                request.getRequestDispatcher("/users.jsp").forward(request, response);
+                request.getRequestDispatcher("/listUsers.jsp").forward(request, response);
             }
         } catch (Exception e) {
                 e.printStackTrace();

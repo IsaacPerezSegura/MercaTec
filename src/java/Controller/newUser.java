@@ -21,24 +21,33 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "newUser", urlPatterns = {"/newUser"})
 public class newUser extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = request.getParameter("id");
         int aux = Integer.parseInt(id);
-        String nombre     = request.getParameter("nombre");
-        String usuario    = request.getParameter("usuario");
+        String nombre = request.getParameter("nombre");
+        String usuario = request.getParameter("usuario");
         String contraseña = request.getParameter("pass");
         System.out.println(contraseña);
-        String tipo       = request.getParameter("tipo");
-        String correo     = request.getParameter("correo");
-        GestorBD query    = new GestorBD();
-        try  {
-            
-            if(query.insertUser(new Usuario(nombre,usuario,contraseña,tipo,correo))){
-                 query.insertUserCar(aux);
-                 response.sendRedirect("users.jsp");
+        String tipo = request.getParameter("tipo");
+        String correo = request.getParameter("correo");
+        GestorBD query = new GestorBD();
+        String nick = query.getNickname(usuario);
+        try {
+            System.out.println("Nickname encontrado:" + nick + ", Nombre que ingresa el admin: " + usuario);
+
+            if (usuario.equalsIgnoreCase(nick)) {
+                request.setAttribute("nameError", "El usuario/nickname ya existe. ");
+                request.getRequestDispatcher("users.jsp").forward(request, response);
+            } else if (nick.equals("")) {
+                if (query.insertUser(new Usuario(nombre, usuario, contraseña, tipo, correo))) {
+                    query.insertUserCar(aux);
+                    response.sendRedirect("listUsers.jsp");
+                }
             }
-        } catch(Exception e){
+
+        } catch (IOException | ServletException e) {
             System.out.println("Problem with new user servlet. Check");
             e.printStackTrace();
         }
