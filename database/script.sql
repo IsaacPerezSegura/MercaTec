@@ -16,7 +16,7 @@ INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estad
 
 INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
 (NULL, 'Yahir Saldivar', 'Admin', '81dc9bdb52d04dc20036dbd8313ed055', 'Administrador', '15240528@itleon.edu.mx', 1);
-
+SELECT * FROM Usuario;
 
 CREATE TABLE Tarjeta(
 	idTarjeta INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -99,6 +99,7 @@ CREATE PROCEDURE getNextIDUser()
  SELECT AUTO_INCREMENT
  FROM information_schema.TABLES
  WHERE TABLE_SCHEMA = "Mercatec"
- AND TABLE_NAME = "Usuarios";
-
+ AND TABLE_NAME = "Usuario";
  
+
+ call getNextIdUser();
