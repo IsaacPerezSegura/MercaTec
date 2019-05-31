@@ -34,6 +34,7 @@ public class GestorBD {
     public int getUsuario(String us, String pass) {
         int id = 0;
         try {
+            System.out.println("us:" +us+ " pass:" + pass);
             String sql = "SELECT idUsuario, tipo FROM Usuario WHERE usuario = '" + us + "' AND contraseña = '" + pass + "' AND estado = 1";
             ps = conexion.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -205,7 +206,7 @@ public class GestorBD {
         int id = 0;
         try {
             st = conexion.createStatement();
-            rs = st.executeQuery("CALL getNextId;");
+            rs = st.executeQuery("CALL getNextIDUser();");
             rs.next();
             id = rs.getInt(1);
             rs.close();

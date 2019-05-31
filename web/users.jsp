@@ -29,6 +29,7 @@
         <% 
             GestorBD  gestor = new GestorBD();
             int id  = gestor.getIDfromUser();
+            System.out.println(id);
         %>
         <div class="container">
             <form action="newUser" method="POST">
