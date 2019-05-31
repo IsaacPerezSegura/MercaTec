@@ -11,6 +11,12 @@
          <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/login.png" />
     </head>
     <body>
+        <% 
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+        %>
         <jsp:include page="header.jsp"/>
         
         <header id="menuUsuario" align="center">

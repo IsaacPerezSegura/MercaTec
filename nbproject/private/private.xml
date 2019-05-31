@@ -3,17 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/ShowPublication.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Model/Carrito.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/Publication.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/web/products.jsp</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Model/GestorBD.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/Validation.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/MyAccount.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/newUser.java</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/web/reports.jsp</file>
-            <file>file:/F:/Documentos/Escuela/MercaTec/src/java/Controller/Carrito.java</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/editPublication.jsp</file>
             <file>file:/F:/Documentos/Escuela/MercaTec/web/showCar.jsp</file>
+            <file>file:/F:/Documentos/Escuela/MercaTec/web/showReport.jsp</file>
         </group>
     </open-files>
 </project-private>

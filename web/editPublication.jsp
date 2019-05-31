@@ -1,9 +1,3 @@
-<%-- 
-    Document   : editPublication
-    Created on : 13/05/2019, 12:46:37 AM
-    Author     : Isaac Perez
---%>
-
 <%@page import="java.util.Base64"%>
 <%@page import="Model.Producto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,6 +10,13 @@
               href="<%= request.getContextPath() %>/css/myAccount.css" />
     </head>
     <body>
+        <% 
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1
+                || request.getAttribute("producto")==null){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }else{
+        %>
         <jsp:include page="header.jsp" />
         <%
             Producto producto = (Producto) request.getAttribute("producto");
@@ -76,5 +77,6 @@
             }	
         </script>
         <jsp:include page="scripts.html"/>
+        <% } %>
     </body>
 </html>

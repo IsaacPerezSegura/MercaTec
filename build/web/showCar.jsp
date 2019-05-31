@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html>
     <body>
+        <% 
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+        %>
         <jsp:include page="header.jsp" />
         
         <%!
@@ -76,6 +82,6 @@
         </div>
         <jsp:include page="footer.jsp"/>
         
-        <jsp:include page="scripts.html"/>
+        <jsp:include page="scripts.jsp"/>
     </body>
 </html>

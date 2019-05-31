@@ -123,6 +123,6 @@
 
         <jsp:include page="footer.jsp"/>
         
-        <jsp:include page="scripts.html"/>
+        <jsp:include page="scripts.jsp"/>
     </body>
 </html>

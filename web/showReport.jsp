@@ -28,6 +28,13 @@
         </script>
     </head>
     <body>
+        <%
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1
+                || request.getAttribute("reportUnique")==null){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }else{
+        %>
         <jsp:include page="header.jsp" />
         <header id="menuUsuario" align="center">
             <a href="<%= request.getContextPath()%>/index.jsp ">Inicio</a>
@@ -90,6 +97,7 @@
                 <input type="submit" class="btn btn-primary" value="Regresar" onclick="atras();"/>
             </div>
             <jsp:include page="footer.jsp" />
+            <% } %>
     </body>
 </html>
 

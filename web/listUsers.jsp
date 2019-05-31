@@ -12,6 +12,14 @@
         <title> Mostrar Usuarios</title>
     </head>
     <body>
+        <% 
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1 
+                || session.getAttribute("type") == null
+                || !((String)session.getAttribute("type")).equals("Administrador")){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+        %>
         <jsp:include page="header.jsp" />
         <header id="menuUsuario" align="center">
             <a href="<%= request.getContextPath()%>/index.jsp ">Inicio</a>

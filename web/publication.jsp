@@ -16,6 +16,12 @@
          <link rel="icon" type="image/png" href="<%= request.getContextPath()%>/img/logo.png" />
     </head>
     <body>
+        <% 
+        if(session.getAttribute("id") == null 
+                || (int)session.getAttribute("id") == -1){
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        }
+        %>
         <jsp:include page="header.jsp" />
         <header id="menuUsuario" align="center">
             <a href="<%= request.getContextPath() %>/index.jsp ">Inicio</a>
@@ -78,6 +84,6 @@
                 }
             }	
         </script>
-        <jsp:include page="scripts.html"/>
+        <jsp:include page="scripts.jsp"/>
     </body>
 </html>
