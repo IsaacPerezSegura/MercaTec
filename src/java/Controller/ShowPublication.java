@@ -63,6 +63,7 @@ public class ShowPublication extends HttpServlet {
                 producto = query.selectProduct(idProducto);
                 request.setAttribute("producto", producto);
                 request.setAttribute("idProductRequest", producto.getIdProducto());
+                System.out.println(producto.getIdProducto());
                 request.getRequestDispatcher("showPublication.jsp").forward(request, response);
             }else{
                 response.sendRedirect("login.jsp");

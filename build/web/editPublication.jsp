@@ -76,7 +76,7 @@
                 }
             }	
         </script>
-        <jsp:include page="scripts.html"/>
+        <jsp:include page="scripts.jsp"/>
         <% } %>
     </body>
 </html>
