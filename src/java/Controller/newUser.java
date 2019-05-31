@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.GestorBD;
+import Model.MD5;
 import Model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -29,6 +31,7 @@ public class newUser extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String usuario = request.getParameter("usuario");
         String contraseña = request.getParameter("pass");
+        MD5 md5 = new MD5(contraseña);
         System.out.println(contraseña);
         String tipo = request.getParameter("tipo");
         String correo = request.getParameter("correo");
@@ -41,8 +44,8 @@ public class newUser extends HttpServlet {
                 request.setAttribute("nameError", "El usuario/nickname ya existe. ");
                 request.getRequestDispatcher("users.jsp").forward(request, response);
             } else if (nick.equals("")) {
-                if (query.insertUser(new Usuario(nombre, usuario, contraseña, tipo, correo))) {
-                    query.insertUserCar(aux);
+                if (query.insertUser(new Usuario(nombre, usuario, md5.getHashedpasswd().toString(), tipo, correo))) {
+                    query.insertUserCar(query.getUsuario(usuario, md5.getHashedpasswd().toString()));
                     response.sendRedirect("listUsers.jsp");
                 }
             }

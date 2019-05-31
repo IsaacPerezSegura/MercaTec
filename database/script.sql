@@ -1,25 +1,22 @@
 create database mercatec;
 use mercatec;
-select * from Reporte where idReporte = 2;
+
 CREATE TABLE Usuario (
 	idUsuario INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     usuario VARCHAR(20) NOT NULL,
-    contraseña VARCHAR(20) NOT NULL,
+    contraseña TEXT NOT NULL,
     tipo VARCHAR(20) NOT NULL, -- Si es profesor, alumno...
     correo VARCHAR(40) NOT NULL,
     estado TINYINT(1) NOT NULL -- Indica si está activa o inactiva la cuenta.
 );
+/* contraseña equivalente a 1234 */
+INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
+(NULL, 'Aideé Alvarez', 'Aidee', '81dc9bdb52d04dc20036dbd8313ed055', 'Alumno', '15240528@itleon.edu.mx', 1);
 
 INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
-(NULL, 'Aideé Alvarez', 'Aidee', '1234', 'Alumno', '15240528@itleon.edu.mx', 1);
+(NULL, 'Yahir Saldivar', 'Admin', '81dc9bdb52d04dc20036dbd8313ed055', 'Administrador', '15240528@itleon.edu.mx', 1);
 
-INSERT INTO Usuario(idUsuario, nombre, usuario, contraseña, tipo, correo, estado) VALUES 
-(NULL, 'Yahir Saldivar', 'Admin', '1234', 'Administrador', '15240528@itleon.edu.mx', 1);
-
-INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL, 1);
-SELECT * FROM Usuario;
-SELECT U.idUsuario, U.nombre, C.idCarrito FROM Usuario AS U INNER JOIN Carrito as C ON C.idUsuario = U.idUsuario;
 
 CREATE TABLE Tarjeta(
 	idTarjeta INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -47,12 +44,6 @@ CREATE TABLE Reporte(
     motivo VARCHAR(20) NOT NULL,
     descripcion TEXT(500) 
 );
-
-SELECT * from Reporte;
-
-INSERT INTO Reporte(idUsuario, idProducto, motivo, descripcion) VALUES
-(1,1,'Arduino descompuesto',' La razón por la cual no compré fue...');
-
 CREATE TABLE Comentarios(
 	idComentario INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idUsuario INT(5) NOT NULL,
@@ -65,7 +56,8 @@ CREATE TABLE Carrito(
 	idCarrito INT(5) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     idUsuario INT(5) NOT NULL
 );
-
+INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL, 1);
+INSERT INTO Carrito(idCarrito,idUsuario) VALUES (NULL, 2);
 CREATE TABLE Productos_Carrito(
 	id int primary key not null auto_increment,
 	idCarrito INT(5) NOT NULL,

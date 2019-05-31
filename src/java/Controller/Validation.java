@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.GestorBD;
+import Model.MD5;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -26,9 +27,12 @@ public class Validation extends HttpServlet {
             // Primero traerse los parámetros del html.
             String usuario = request.getParameter("user");
             String pass = request.getParameter("password");
+            
+            //Encriptacion!!!!
+            MD5 md5 = new MD5(pass);
             // Llamar al gestor de base de datos para realizar la búsqueda.
                      GestorBD gestor = new GestorBD();
-             int id  = gestor.getUsuario(usuario, pass);
+             int id  = gestor.getUsuario(usuario, md5.getHashedpasswd().toString());
              String aux = gestor.typeUser;
             if(id != 0){
                 // Si regresa algo que no sea -1, se crea una sesión de usuario.
